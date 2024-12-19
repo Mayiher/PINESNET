@@ -1,0 +1,37 @@
+-- Crear tabla de usuarios
+CREATE TABLE users (
+    identificacion VARCHAR(20) PRIMARY KEY,  -- Número de identificación del usuario (alfanumérico)
+    nombre VARCHAR(255) NOT NULL,            -- Nombre del usuario
+    apellido VARCHAR(255) NOT NULL,          -- Apellido del usuario
+    correo VARCHAR(255) NOT NULL UNIQUE,     -- Correo electrónico del usuario (único)
+    telefono VARCHAR(15) NOT NULL,           -- Teléfono del usuario
+    contrasena VARCHAR(255) NOT NULL,        -- Contraseña del usuario
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- Fecha de registro, por defecto el timestamp actual
+);
+
+-- Crear tabla de ventas
+CREATE TABLE sales (
+    id_venta INT PRIMARY KEY,                -- Identificador único de la venta (factura)
+    id_usuario VARCHAR(20) NOT NULL,            -- Identificación del usuario que realiza la compra
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Fecha de la venta
+    subtotal INT NOT NULL,                      -- Suma de los valores brutos de todos los productos
+    total_iva INT NOT NULL,                     -- Suma del IVA de todos los productos
+    descuento INT DEFAULT 0,                    -- Descuento total aplicado a la venta
+    total INT NOT NULL,                         -- Total a pagar después de descuentos e IVA
+    FOREIGN KEY (id_usuario) REFERENCES users(identificacion) -- Relación con la tabla users
+);
+
+-- Crear tabla de detalles de ventas
+CREATE TABLE sales_details (
+    id_detalle INT PRIMARY KEY,              -- Identificador único del detalle
+    id_venta INT NOT NULL,                      -- Identificador de la venta (relación con `sales`)
+    codigo_producto VARCHAR(50) NOT NULL,       -- Código principal del producto
+    descripcion VARCHAR(255) NOT NULL,          -- Descripción del producto
+    cantidad INT NOT NULL,                      -- Cantidad del producto
+    precio_unitario INT NOT NULL,               -- Precio unitario del producto (sin decimales)
+    bruto INT NOT NULL,                         -- Valor bruto (cantidad * precio_unitario)
+    porcentaje_iva INT NOT NULL,                -- Porcentaje del IVA aplicado al producto (por ejemplo, 19)
+    iva INT NOT NULL,                           -- Valor del IVA calculado (bruto * porcentaje_iva / 100)
+    total INT NOT NULL,                         -- Total del producto después del IVA (bruto + iva)
+    FOREIGN KEY (id_venta) REFERENCES sales(id_venta) -- Relación con la tabla sales
+);

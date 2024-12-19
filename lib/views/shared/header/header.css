@@ -1,0 +1,155 @@
+
+/* Estilos globales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Cambia el tipo de letra a Times New Roman */
+}
+
+/* Estilos para la barra superior */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+}
+
+/* Estilos para el logo y la barra de b�squeda */
+.logo-search-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Estilos para el logo */
+.logo {
+    max-width: 60px;
+    margin-right: 350px; /* A�ade un margen a la derecha del logo */
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: grey; /* Fondo de color gris */
+    border-radius: 25px; /* Esquinas redondeadas */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Añade una sombra */
+}
+
+
+/* Estilos para la barra de b�squeda */
+.search-bar {
+    padding: 6px;
+    border-radius: 26px;
+    border: none;
+    background-color: #DEDEDE; /* Fondo de color gris */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* A�ade una sombra */
+    width: 450px; /* Ajusta esto al ancho que desees */
+    height: 30px; /* Ajusta esto a la altura que desees */
+}
+
+/* Estilos para el bot�n de b�squeda */
+.search-button {
+    background: linear-gradient(to right, purple, blue); /* Degradado de morado a azul */
+    border: none;
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 25px; /* Esto redondea las esquinas del bot�n */
+    width: 50px; /* Ajusta esto al ancho que desees */
+    height: 30px; /* Ajusta esto a la altura que desees */
+}
+
+/* Estilos para los iconos a la derecha */
+.icons a {
+    color: black; /* Texto de color negro */
+    margin-left: 8px;
+    text-decoration: none; /* Elimina la l�nea inferior */
+}
+
+    .icons a .icon img {
+        width: 30px; /* Cambia el ancho de los iconos de imagen */
+        height: 30px; /* Cambia la altura de los iconos de imagen */
+        vertical-align: middle; /* Centra el icono verticalmente */
+    }
+
+    .dropdown-users {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .dropdown-content-users {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+        z-index: 1;
+    }
+    
+    .dropdown-content-users a {
+        display: block;
+    }
+    
+    .dropdown-users:hover .dropdown-content-users {
+        display: block;
+    }
+    
+
+/* Estilos para los iconos */
+.icon {
+    margin-right: 2px; /* A�ade un margen a la derecha del icono */
+}
+
+
+/* Estilos para los iconos */
+.icon {
+    margin-right: 5px; /* A�ade un margen a la derecha del icono */
+}
+
+/* Estilos para el men� de navegaci�n */
+.nav-menu {
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-start; /* Alinea los elementos a la izquierda */
+    padding: 10px;
+    background-color: #F0F0F0; /* Fondo */
+}
+
+    .nav-menu li {
+        display: block;
+        margin-right: 10px; /* Ajusta esto al espacio que desees entre los elementos */
+        position: relative; /* A�ade una posici�n relativa para permitir el posicionamiento absoluto de los men�s desplegables */
+    }
+
+    /* Estilos para los enlaces del men� de navegaci�n */
+    .nav-menu a {
+        color: black; /* Texto de color negro */
+        text-decoration: none; /* Elimina la l�nea inferior */
+        transition: color 0.5s ease; /* A�ade una transici�n lenta al cambio de color */
+    }
+
+    /* Estilos para el enlace activo */
+    .nav-menu .active {
+        color: purple; /* Texto de color morado */
+    }
+
+    /* Estilos para los enlaces del men� de navegaci�n cuando el mouse pasa por encima */
+    .nav-menu a:hover {
+        color: purple; /* Texto de color morado */
+    }
+
+/* Estilos para el men� desplegable */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #F0F0F0;
+    padding: 10px;
+    list-style-type: none;
+    z-index: 1000; /* Asegura que el men� desplegable est� encima de todo */
+    width: 140px; /* Ajusta el ancho del men� desplegable */
+}
+
+/* Muestra el men� desplegable cuando se pasa el mouse sobre el elemento del men� */
+.nav-menu li:hover .dropdown-menu {
+    display: block;
+}

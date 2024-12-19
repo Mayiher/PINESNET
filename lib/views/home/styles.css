@@ -1,0 +1,136 @@
+
+.carousel {
+    position: relative;
+    width: 100%;
+    max-width: 1860px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+    .carousel-inner img {
+        width: 100%;
+        display: none;
+        object-fit: contain;
+        max-height: 600px;
+    }
+
+        .carousel-inner img.active {
+            display: block;
+        }
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+
+/* Sección de información */
+#informacion {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.info {
+    border: 1px solid #ddd;
+    padding: 50px;
+    width: 30%;
+    text-align: center;
+}
+
+/* Container for both sections */
+#main-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100vh; /* Ocupa todo el largo de la página */
+}
+
+#productos {
+    width: 70%;
+    padding: 20px;
+}
+
+#carrito {
+    width: 30%;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-left: 1px solid #ddd;
+    overflow-y: auto; /* Para hacer scroll si el contenido del carrito es largo */
+}
+
+#productos .producto, #lista-carrito .item-carrito {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px auto;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-to-cart, .remove-from-cart {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+    .add-to-cart:hover {
+        background-color: #218838;
+    }
+
+.remove-from-cart {
+    background-color: #dc3545;
+}
+
+    .remove-from-cart:hover {
+        background-color: #c82333;
+    }
+
+#lista-carrito {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+#total-carrito {
+    border-top: 1px solid #ddd;
+    padding: 10px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+#pagar {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+    #pagar:hover {
+        background-color: #c82333;
+    }
