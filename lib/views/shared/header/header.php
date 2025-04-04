@@ -23,43 +23,65 @@ session_start();
         <div class="icons">
             <?php
             // Inicializamos variables
-            $isAdmin = false;
+            $isEmployee = false;  // Indicará si se ha iniciado sesión como empleado
+            $isAdmin = false;     // Indicará si el empleado tiene rol de administrador
             $nombre = '';
             $apellido = '';
-            $cartCount = 0; // Inicializamos el contador del carrito
+            $cartCount = 0;       // Contador del carrito
 
-            // Verificamos si el usuario es administrador
-            if (isset($_SESSION['admin'])) {
-                $isAdmin = $_SESSION['admin']['rol'] == 'Administrador';
-                $nombre = isset($_SESSION['admin']['nombre']) ? $_SESSION['admin']['nombre'] : '';
-                $apellido = isset($_SESSION['admin']['apellido']) ? $_SESSION['admin']['apellido'] : '';
-            }
-            // Verificamos si el usuario es normal
-            elseif (isset($_SESSION['users'])) {
-                $nombre = isset($_SESSION['users']['nombre']) ? $_SESSION['users']['nombre'] : '';
-                $apellido = isset($_SESSION['users']['apellido']) ? $_SESSION['users']['apellido'] : '';
-                // Si el usuario tiene un carrito guardado en sesión, calculamos el número de productos
-                $cartCount = isset($_SESSION['carrito']) ? count($_SESSION['carrito']) : 0;
+            // Revisamos si existe sesión para empleado en 'employees' o 'admin'
+            if (isset($_SESSION['employees']) && !empty($_SESSION['employees'])) {
+                $sessionData = $_SESSION['employees'];
+                $isEmployee = true;
+            } elseif (isset($_SESSION['admin']) && !empty($_SESSION['admin'])) {
+                $sessionData = $_SESSION['admin'];
+                $isEmployee = true;
+            } elseif (isset($_SESSION['users']) && !empty($_SESSION['users'])) {
+                $sessionData = $_SESSION['users'];
+            } else {
+                $sessionData = [];
             }
 
-            // Si es un administrador
-            if ($isAdmin) {
+            if (!empty($sessionData)) {
+                $nombre = $sessionData['nombre'] ?? '';
+                $apellido = $sessionData['apellido'] ?? '';
+                if ($isEmployee) {
+                    // Verificamos el rol del empleado (convertimos a minúsculas para evitar problemas)
+                    $isAdmin = (isset($sessionData['rol']) && strtolower($sessionData['rol']) === 'administrador');
+                } else {
+                    // Si es usuario normal, obtenemos el contador del carrito
+                    $cartCount = isset($_SESSION['carrito']) ? count($_SESSION['carrito']) : 0;
+                }
+            }
+
+            // Si se detecta un empleado, se muestra su nombre y, si es administrador, el enlace de administración
+            if ($isEmployee) {
             ?>
                 <div class="dropdown-users">
-                    <a href="#"><span class="icon"><img src="/assets/images/usuario.png" alt=""></span> <?php echo $nombre . ' ' . $apellido; ?></a>
+                    <a href="#">
+                        <span class="icon"><img src="/assets/images/usuario.png" alt=""></span>
+                        <?php echo $nombre . ' ' . $apellido; ?>
+                    </a>
                     <div class="dropdown-content-users">
                         <a href="/lib/views/users/perfil.php">Perfil</a>
                         <a href="/lib/views/users/sign-out.php">Cerrar sesión</a>
                     </div>
                 </div>
-                <a href="/lib/views/admin/index_admin.php"><span class="icon"><img src="/assets/images/admin.png" alt=""></span> Administración</a>
+                <?php if ($isAdmin): ?>
+                    <a href="/lib/views/employees/index_admin.php">
+                        <span class="icon"><img src="/assets/images/admin.png" alt=""></span> Administración
+                    </a>
+                <?php endif; ?>
             <?php
             } else {
-                // Si no es administrador, mostramos el nombre de usuario y opciones
+                // Si es usuario normal o no hay sesión
                 if (!empty($nombre)) {
             ?>
                 <div class="dropdown-users">
-                    <a href="#"><span class="icon"><img src="/assets/images/usuario.png" alt=""></span> <?php echo $nombre . ' ' . $apellido; ?></a>
+                    <a href="#">
+                        <span class="icon"><img src="/assets/images/usuario.png" alt=""></span>
+                        <?php echo $nombre . ' ' . $apellido; ?>
+                    </a>
                     <div class="dropdown-content-users">
                         <a href="/lib/views/users/perfil.php">Perfil</a>
                         <a href="/lib/views/users/sign-out.php">Cerrar sesión</a>
@@ -67,25 +89,20 @@ session_start();
                 </div>
             <?php
                 } else {
-                    // Si no hay usuario, mostramos el enlace de "Entrar"
             ?>
-                <a href="/lib/views/auth/login/login.php"><span class="icon"><img src="/assets/images/usuario.png" alt=""></span> Entrar</a>
+                <a href="/lib/views/auth/login/login.php">
+                    <span class="icon"><img src="/assets/images/usuario.png" alt=""></span> Entrar
+                </a>
             <?php
                 }
-
-                // Mostramos el carrito para usuarios no administradores
-                if (!$isAdmin) {
             ?>
-                <a href="/src/carrito.php"><span class="icon"><img src="/assets/images/carrito-de-compras.png" alt=""></span> Carrito (<?php echo $cartCount; ?>)</a>
+                <a href="/src/carrito.php">
+                    <span class="icon"><img src="/assets/images/carrito-de-compras.png" alt=""></span> Carrito (<?php echo $cartCount; ?>)
+                </a>
+                <a href="#">
+                    <span class="icon"><img src="/assets/images/favorito.png" alt=""></span> Favoritos
+                </a>
             <?php
-                }
-
-                // Enlace de favoritos solo para usuarios normales
-                if (!$isAdmin) {
-            ?>
-                <a href="#"><span class="icon"><img src="/assets/images/favorito.png" alt=""></span> Favoritos</a>
-            <?php
-                }
             }
             ?>
         </div>

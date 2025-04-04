@@ -13,17 +13,16 @@ body {
     background-color: white;
 }
 
-/* Estilos para el logo y la barra de busqueda */
+/* Estilos para el logo y la barra de b�squeda */
 .logo-search-container {
     display: flex;
     align-items: center;
-
 }
 
 /* Estilos para el logo */
 .logo {
-    max-width: 120px;
-    margin-right: 350px; /* Añade un margen a la derecha del logo */
+    max-width: 60px;
+    margin-right: 350px; /* A�ade un margen a la derecha del logo */
 }
 
 .search-container {

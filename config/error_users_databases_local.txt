@@ -1,0 +1,19 @@
+2025-03-10 15:25:58 - SQLite3::prepare(): Unable to prepare statement: 1, no such table: users in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\users-databases-local.php on line 28
+2025-03-10 15:26:02 - SQLite3::prepare(): Unable to prepare statement: 1, no such table: users in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\users-databases-local.php on line 28
+2025-03-10 15:29:00 - Undefined variable $conexion in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\users-databases-local.php on line 26
+2025-03-10 15:29:07 - Undefined variable $conexion in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\users-databases-local.php on line 26
+2025-03-10 15:29:23 - Undefined variable $conexion in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\users-databases-local.php on line 28
+2025-03-10 15:31:19 - Undefined variable $conexion in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\users-databases-local.php on line 27
+2025-03-10 15:33:47 - Undefined variable $conexion in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\users-databases-local.php on line 27
+2025-03-10 15:41:29 - SQLite3::prepare(): Unable to prepare statement: 1, no such column: correo in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\users-databases-local.php on line 27
+2025-03-10 15:50:31 - SQLite3::prepare(): Unable to prepare statement: 1, no such table: admin in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\users-databases-local.php on line 43
+2025-03-10 15:51:36 - SQLite3::prepare(): Unable to prepare statement: 1, no such table: admin in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\users-databases-local.php on line 43
+2025-03-10 15:51:46 - SQLite3::prepare(): Unable to prepare statement: 1, no such table: admin in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\users-databases-local.php on line 43
+2025-03-10 15:52:15 - SQLite3::prepare(): Unable to prepare statement: 1, no such table: admin in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\users-databases-local.php on line 43
+2025-03-10 16:12:16 - SQLite3::prepare(): Unable to prepare statement: 1, no such table: admin in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\users-databases-local.php on line 43
+2025-03-10 16:12:25 - SQLite3::prepare(): Unable to prepare statement: 1, no such table: admin in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\users-databases-local.php on line 43
+2025-03-10 16:12:28 - SQLite3::prepare(): Unable to prepare statement: 1, no such table: admin in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\users-databases-local.php on line 43
+2025-03-10 16:13:19 - SQLite3::prepare(): Unable to prepare statement: 1, no such table: admin in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\users-databases-local.php on line 43
+2025-03-10 16:13:46 - SQLite3::prepare(): Unable to prepare statement: 1, no such table: admin in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\users-databases-local.php on line 43
+2025-03-10 16:13:58 - SQLite3::prepare(): Unable to prepare statement: 1, no such table: admin in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\users-databases-local.php on line 43
+2025-03-10 16:15:33 - SQLite3::prepare(): Unable to prepare statement: 1, no such table: admin in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\users-databases-local.php on line 43

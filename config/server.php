@@ -5,10 +5,10 @@ if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     define('DIRECT_EXECUTION', true);
 }
 
-$servidor = "bhmzhscouzd765lwdpve-mysql.services.clever-cloud.com";          
-$usuario = "ulb6umzmuwxtfser";                
-$contraseña = "rm5FoPT0AfanTUKoPmE5";                  
-$base_de_datos = "bhmzhscouzd765lwdpve";       
+$servidor = "localhost";          
+$usuario = "root";                
+$contraseña = "";                  
+$base_de_datos = "pinesnet";     
 
 
 $conexion = mysqli_connect($servidor, $usuario, $contraseña, $base_de_datos);

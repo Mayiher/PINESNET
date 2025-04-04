@@ -7,88 +7,66 @@ error_reporting(0);
 
 // Definir un manejador de errores personalizado
 set_error_handler(function ($errno, $errstr, $errfile, $errline) {
-
-    // Obtener la fecha y hora actuales
     $fecha = date('Y-m-d H:i:s');
-
-    // Escribir el error en un archivo con la fecha y hora
     file_put_contents('error_users_databases_local.txt', $fecha . ' - ' . $errstr . ' in ' . $errfile . ' on line ' . $errline . "\n", FILE_APPEND);
 });
 
 session_start();
 
 try {
+    // Incluir el archivo de conexión (SQLite3)
     include 'server-local.php';
 
     $correo = $_POST['correo'];
-    $contrasena = $_POST['contrasena'];
-    $contrasena = hash('sha512', $contrasena);
+    $contrasena = hash('sha512', $_POST['contrasena']);
 
-    // Preparar la consulta
-    $stmt = $conexion->prepare("SELECT * FROM users WHERE correo=? and contrasena=?");
-    $stmt->bind_param("ss", $correo, $contrasena);
+    // Buscar en la tabla 'users'
+    $stmt = $conexion->prepare("SELECT * FROM users WHERE correo = ? AND contrasena = ?");
+    $stmt->bindValue(1, $correo, SQLITE3_TEXT);
+    $stmt->bindValue(2, $contrasena, SQLITE3_TEXT);
+    $result = $stmt->execute();
+    $user = $result->fetchArray(SQLITE3_ASSOC);
 
-    // Ejecutar la consulta
-    $stmt->execute();
-
-    // Obtener los resultados
-    $result = $stmt->get_result();
-
-    // Verificar si se encontraron registros
-    if ($user = $result->fetch_assoc()) {
-
-     // Guardamos todo el objeto del usuario en la sesión
+    if ($user) {
+        // Si se encontró en 'users', se guarda en $_SESSION['users']
         $_SESSION['users'] = $user;
-        header("location: /index.php");
+        header("Location: /index.php");
         exit;
     } else {
+        // Si no se encontró en 'users', buscar en la tabla 'employees'
+        $stmt = $conexion->prepare("SELECT * FROM employees WHERE correo = ? AND contrasena = ?");
+        $stmt->bindValue(1, $correo, SQLITE3_TEXT);
+        $stmt->bindValue(2, $contrasena, SQLITE3_TEXT);
+        $result = $stmt->execute();
+        $employee = $result->fetchArray(SQLITE3_ASSOC);
 
-        // Si no se encontró el usuario en la tabla 'users', buscar en la tabla 'admin'
-        $stmt = $conexion->prepare("SELECT * FROM admin WHERE correo=? and contrasena=?");
-        $stmt->bind_param("ss", $correo, $contrasena);
-
-        // Ejecutar la consulta
-        $stmt->execute();
-
-        // Obtener los resultados
-        $result = $stmt->get_result();
-
-        // Verificar si se encontraron registros
-        if ($admin = $result->fetch_assoc()) {
-
-             // Guardamos todo el objeto del administrador en la sesión
-            $_SESSION['admin'] = $admin;
-            if ($admin['rol'] == 'Administrador') {
-                header("location: ../admin/index_admin.php");
+        if ($employee) {
+            // Si el empleado es administrador, guardarlo solo en $_SESSION['admin']
+            if (strtolower($employee['rol']) === 'administrador') {
+                $_SESSION['admin'] = $employee;
+                header("Location: /lib/views/employees/index_admin.php");
+                exit;
             } else {
-                header("location: /index.php");
+                // Para otros empleados, se guarda en $_SESSION['employees']
+                $_SESSION['employees'] = $employee;
+                header("Location: /index.php");
+                exit;
             }
-            exit;
         } else {
             echo '
             <script>
-            alert("Este correo no se encuentra registrado, por favor verifique la informacion");
-            window.onload = function() {
-        setTimeout(function() {
-            window.location = "/lib/views/auth/login/login.php";
-        }, 0); 
-        };
+                alert("Este correo no se encuentra registrado, por favor verifique la información");
+                window.location.href = "/lib/views/auth/login/login.php";
             </script>
             ';
             exit;
         }
     }
 } catch (Exception $e) {
-    // Mostrar la alerta de error y redirigir después de que el usuario la cierre
     echo '<script>
-    alert("No se ha podido conectar a la base de datos");
-    window.onload = function() {
-        setTimeout(function() {
-            window.location = "/lib/views/auth/login/login.php";
-        }, 0); 
-    };
+        alert("No se ha podido conectar a la base de datos");
+        window.location.href = "/lib/views/auth/login/login.php";
     </script>';
     exit;
 }
-
 ?>
