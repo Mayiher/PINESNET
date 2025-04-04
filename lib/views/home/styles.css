@@ -15,9 +15,10 @@
 
     .carousel-inner img {
         width: 100%;
+        height: 600px;
         display: none;
-        object-fit: contain;
-        max-height: 600px;
+        object-fit: cover;
+        
     }
 
         .carousel-inner img.active {

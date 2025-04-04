@@ -18,20 +18,36 @@ require '../shared/header/header.php';
         <div id="main-content">
             <!-- Sección de Productos (ahora a la izquierda) -->
             <section id="productos">
-                <h2>Productos</h2>
-                <div class="producto" data-nombre="Paquete 1 - Alta Velocidad" data-precio="100">
-                    <p>Paquete 1 - Alta Velocidad</p>
-                    <p>Precio: $100</p>
+                <h1>Productos</h1>
+
+                <div class="producto" data-nombre="1 Dia - Alta Velocidad" data-precio="1.000">
+                    <p> 1 Dia - Alta Velocidad</p>
+                    <p> ------------</p>
+                    <p>Precio: $1.000</p>
                     <button class="add-to-cart">Añadir al carrito</button>
                 </div>
-                <div class="producto" data-nombre="Paquete 2 - Internet Prepagado" data-precio="200">
-                    <p>Paquete 2 - Internet Prepagado</p>
-                    <p>Precio: $200</p>
+                <div class="producto" data-nombre="7 Dia - Internet Prepagado" data-precio="7.000">
+                    <p>7 Dia - Internet Prepagado</p>
+                    <p> ------------</p>
+                    <p>Precio: $7.000</p>
                     <button class="add-to-cart">Añadir al carrito</button>
                 </div>
-                <div class="producto" data-nombre="Paquete 3 - Seguridad Avanzada" data-precio="300">
-                    <p>Paquete 3 - Seguridad Avanzada</p>
-                    <p>Precio: $300</p>
+                <div class="producto" data-nombre="10 Dia - Seguridad Avanzada" data-precio="10.000">
+                    <p>10 Dia - Seguridad Avanzada</p>
+                    <p> ------------</p>
+                    <p>Precio: $10.000</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+                <div class="producto" data-nombre="15 Dia - Todo incluido" data-precio="15.000">
+                    <p>15 Dia - Todo incluido</p>
+                    <p> ------------</p>
+                    <p>Precio: $15.000</p>
+                    <button class="add-to-cart">Añadir al carrito</button>
+                </div>
+                <div class="producto" data-nombre="30 Dia - Eficiencia al limite" data-precio="30.000">
+                    <p>30 Dia - Eficiencia al limite</p>
+                    <p> ------------</p>
+                    <p>Precio: $30.000</p>
                     <button class="add-to-cart">Añadir al carrito</button>
                 </div>
             </section>
@@ -40,6 +56,7 @@ require '../shared/header/header.php';
             <section id="carrito">
                 <h2>Carrito de Compras</h2>
                 <div id="lista-carrito">
+                    <img src="/assets/images/vacio.png" alt="carrito vacío" class="carrito-vacio-img">
                     <p>Tu carrito está vacío.</p>
                 </div>
                 <div id="total-carrito">

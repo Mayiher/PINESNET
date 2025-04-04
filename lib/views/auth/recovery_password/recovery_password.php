@@ -26,14 +26,15 @@
     <!-- Contenido de recuperacion de contrase�a -->
     <div class="login-container">
         <div class="login-box">
-            <h2>Recuperar contrase�a</h2>
+            <h2>¿Olvidaste tu contraseña?</h2>
+            <h4>¡No te preocupes a todos nos sucede! (ingresa tu gmail y te aydaremos)<h4>
 
             <form id="login-form" method="POST" action="">
                 <div class="textbox">
                     <label for="correo">Email</label>
                     <input type="email" id="correo" name="correo" required>
                 </div>
-                <input type="submit" class="btn" value="Enviar enlace de restablecimiento">
+                <input type="submit" class="btn" value="Solicitar ayuda">
             </form>
         </div>
     </div>
