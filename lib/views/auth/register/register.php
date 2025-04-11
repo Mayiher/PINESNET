@@ -18,7 +18,7 @@
             <h2>Iniciar sesión</h2>
             <p class="no-underline">¿Ya tienes una cuenta? <a href="../login/login.php" class="login-link">Inicia sesión</a></p>
 
-            <form id="login-form" method="POST" action="/config/register-users-databases-local.php">
+            <form id="login-form" method="POST" action="/config/register-users-databases.php">
                 <div class="textbox">
                     <label for="Identificacion">Número de identificación</label>
                     <input type="text" id="identificacion" name="identificacion" required>

@@ -1,0 +1,1 @@
+2025-04-09 00:29:00 - mysqli_connect(): php_network_getaddresses: getaddrinfo for bnffntnhcr3jsjqwdsxk-mysql.services.-cloud.com failed: Host desconocido.  in D:\Users\Jesus Madariaga\Documents\GitHub\PINESNET\config\server.php on line 14

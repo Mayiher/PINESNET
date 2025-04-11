@@ -59,7 +59,7 @@ try {
              // Guardamos todo el objeto del administrador en la sesión
             $_SESSION['admin'] = $admin;
             if ($admin['rol'] == 'Administrador') {
-                header("location: /lib/views/admin/index_admin.php");
+                header("location: /lib/views/employees/index_admin.php");
             } else {
                 header("location: /index.php");
             }
@@ -68,7 +68,7 @@ try {
             echo '
             <script>
             alert("Este correo no se encuentra registrado, por favor verifique la informacion");
-            window.location = "login.php";
+            window.location = "/lib/views/auth/login/login.php";
             </script>
             ';
             exit;

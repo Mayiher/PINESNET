@@ -23,6 +23,7 @@ $adminData = $_SESSION['admin'];
 
     <a href="manage_admin/manage_admin.php">Gestionar administradores</a><br><br>
     <a href="manage_users/manage_users.php">Gestionar clientes</a><br><br>
+    <a href="manage_sellers/manage_sellers.php">Gestionar vendedores</a><br><br>
     <a href="manage_sales/manage_sales.php">Ventas</a><br><br>
 
 </body>

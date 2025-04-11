@@ -1,4 +1,5 @@
 <?php
+
 require '../../shared/header/header.php';
 
 // Verificamos que exista la sesión de administrador y que su rol sea "administrador"
@@ -27,11 +28,11 @@ $apellido = $_SESSION['admin']['apellido'];
 <div class="container is-fluid">
   <div class="col-xs-12">
     <h1>Bienvenido Administrador <?php echo htmlspecialchars($nombre . ' ' . $apellido); ?></h1>
-    <h1>Lista de administradores</h1>
+    <h1>Lista de vendedores</h1>
     <div>
       <a class="btn-success" href="views/create_admin.php">
         <img src="/assets/images/agregar.png" alt="Nuevo Administrador" style="width: 25px; height: 25px;">
-        Nuevo Administrador
+        Nuevo vendendor
       </a>
     </div>
     <br><br>
@@ -51,18 +52,21 @@ $apellido = $_SESSION['admin']['apellido'];
         </thead>
         <tbody>
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/config/server.php';
+// Incluimos la conexión a la base de datos SQLite (la ruta se define en /config/server-local.php)
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/server-local.php';
 
+// Consulta para seleccionar los administradores en la tabla "employees"
 $SQL = "SELECT id, identificacion, nombre, apellido, correo, telefono, contrasena 
-        FROM admin 
-        WHERE LOWER(rol) = 'administrador'";
-
+        FROM employees 
+        WHERE LOWER(rol) = 'sellers'";
 $resultado = $conexion->query($SQL);
 
-if ($resultado && $resultado->num_rows > 0) {
-    while ($fila = $resultado->fetch_assoc()) {
-?>
-        <tr>
+$found = false;
+if ($resultado) {
+    while ($fila = $resultado->fetchArray(SQLITE3_ASSOC)) {
+        $found = true;
+        ?>
+          <tr>
             <td><?php echo htmlspecialchars($fila['id']); ?></td>
             <td><?php echo htmlspecialchars($fila['identificacion']); ?></td>
             <td><?php echo htmlspecialchars($fila['nombre']); ?></td>
@@ -82,15 +86,22 @@ if ($resultado && $resultado->num_rows > 0) {
                 </a>
               </div>
             </td>
-        </tr>
-<?php
+          </tr>
+        <?php
+    }
+    if (!$found) {
+        ?>
+          <tr class="text-center">
+            <td colspan="8">No existen registros</td>
+          </tr>
+        <?php
     }
 } else {
-?>
-        <tr class="text-center">
-            <td colspan="8">No existen registros</td>
-        </tr>
-<?php
+    ?>
+          <tr class="text-center">
+            <td colspan="8">Error en la consulta: <?php echo htmlspecialchars($conexion->lastErrorMsg()); ?></td>
+          </tr>
+    <?php
 }
 ?>
         </tbody>
