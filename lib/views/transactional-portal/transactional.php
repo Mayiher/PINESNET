@@ -1,5 +1,5 @@
 <?php
-require '../header-footer/header.php';
+require '../shared/header/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +8,7 @@ require '../header-footer/header.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos</title>
-    <link rel="stylesheet" href="/src/header-footer/css/header.css">
+    <link rel="stylesheet" href="../shared/header/header.css">
     <link rel="stylesheet" href="/src/header-footer/css/footer.css">
     <link rel="stylesheet" href="/css/transactional.css">
 </head>
