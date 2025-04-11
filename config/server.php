@@ -5,10 +5,10 @@ if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     define('DIRECT_EXECUTION', true);
 }
 
-$servidor = "bnffntnhcr3jsjqwdsxk-mysql.services.clever-cloud.com";          
-$usuario = "ulb6umzmuwxtfser";                
-$contraseña = "rm5FoPT0AfanTUKoPmE5";                  
-$base_de_datos = "bnffntnhcr3jsjqwdsxk";     
+$servidor = "bafaschb4htfozmlbpjf-mysql.services.clever-cloud.com";          
+$usuario = "uti1tr2hjxxvbeaf";                
+$contraseña = "ncdx8lWB70vANf2SRMvF";                  
+$base_de_datos = "bafaschb4htfozmlbpjf";     
 
 
 $conexion = mysqli_connect($servidor, $usuario, $contraseña, $base_de_datos);
