@@ -65,4 +65,4 @@ jobs:
           app-name: 'pinesnetco'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_641FD2C930BE4391B4713025D2FA78AF }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E5FEA2DBA4854B7E965615ECA4007CD1 }}
