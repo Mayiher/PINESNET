@@ -9,8 +9,7 @@ require '../shared/header/header.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos</title>
     <link rel="stylesheet" href="../shared/header/header.css">
-    <link rel="stylesheet" href="/src/header-footer/css/footer.css">
-    <link rel="stylesheet" href="/css/transactional.css">
+    <link rel="stylesheet" href="../shared/footer/footer.css">
 </head>
 <body>
     <!doctype html>

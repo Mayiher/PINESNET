@@ -9,6 +9,14 @@ session_start();
     <title>PINESNET</title>
     <link rel="icon" href="/assets/images/logo.jpg" type="image/png">
     <link rel="stylesheet" href="header.css">
+
+<?php
+    $loggedIn = isset($_SESSION['users']) || isset($_SESSION['employees']) || isset($_SESSION['admin']);
+?>
+<script>
+    const isLoggedIn = <?php echo $loggedIn ? 'true' : 'false'; ?>;
+</script>
+
 </head>
 <body>
 

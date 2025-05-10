@@ -16,7 +16,7 @@
     .carousel-inner img {
         width: 100%;
         display: none;
-        object-fit: contain;
+        object-fit: cover;
         max-height: 600px;
     }
 
@@ -43,8 +43,6 @@
     right: 10px;
 }
 
-
-/* Sección de información */
 #informacion {
     display: flex;
     justify-content: space-around;
@@ -58,12 +56,11 @@
     text-align: center;
 }
 
-/* Container for both sections */
 #main-content {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 100vh; /* Ocupa todo el largo de la página */
+    height: 100vh; 
 }
 
 #productos {
@@ -76,7 +73,7 @@
     padding: 20px;
     background-color: #f7f7f7;
     border-left: 1px solid #ddd;
-    overflow-y: auto; /* Para hacer scroll si el contenido del carrito es largo */
+    overflow-y: auto; 
 }
 
 #productos .producto, #lista-carrito .item-carrito {

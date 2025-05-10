@@ -1,95 +1,166 @@
+/* Reset básico */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body {
+  }
+  body {
     font-family: Arial, sans-serif;
+    background: #f5f5f5;
+  }
+  
+  /* Contenedor de planes */
+  .planes-container {
+    padding: 30px 20px;
+    text-align: center;
+  }
+  .planes-title {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    color: #333;
+  }
+  
+  .planes {
+    display: flex;
+    flex-wrap: wrap; /* Permite que las tarjetas bajen a otra línea */
+    justify-content: center;
+    gap: 20px;
+    padding-bottom: 10px;
+  }
+  
+  /* Estilo base de cada tarjeta */
+  .plan-card {
+    position: relative;
+    width: 250px;
+    background: #fff;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .plan-card input {
+    display: none;
+  }
+  
+  /* Encabezado con degradado */
+  .plan-header {
+    position: relative;
+    padding: 20px;
+    text-align: left;
+    color: #fff;
+    background: linear-gradient(135deg, #4b0082, #8a2be2);
+    transition: transform 0.3s;
+  }
+  .plan-card--popular .plan-header {
+    background: linear-gradient(135deg, #201f1f, #e50914);
+  }
+  .plan-header h3 {
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+  }
+  .plan-header p {
+    font-size: 1rem;
+    opacity: 0.9;
+  }
+  
+  /* Checkmark usando imagen local, sin texto detrás */
+  .plan-header .checkmark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+  
+    background-image: url('/assets/images/check-circle.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+  
+    /* eliminar cualquier posible texto */
+    font-size: 0;
+    line-height: 0;
+    text-indent: -9999px;
+  
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  /* Lista de características con divisores */
+  .plan-features {
+    list-style: none;
     margin: 0;
     padding: 0;
-}
-
-#main-content {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    height: 100vh;
-}
-
-#productos {
-    width: 70%;
-    padding: 20px;
-}
-
-#carrito {
-    width: 30%;
-    padding: 20px;
-    background-color: #f7f7f7;
-    border-left: 1px solid #ddd;
-    overflow-y: auto;
-}
-
-#productos .producto, #lista-carrito .item-carrito {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px auto;
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.add-to-cart, .remove-from-cart {
-    background-color: #28a745;
-    color: white;
+  }
+  .plan-features li {
+    font-size: 0.9rem;
+    padding: 15px 20px;
+    color: #333;
+    text-align: left;
+    border-top: 1px solid #e0e0e0;
+  }
+  .plan-features li:first-child {
+    border-top: none;
+  }
+  
+  /* Estado seleccionado */
+  /* Eleva un poco el header */
+  .plan-card input:checked + .plan-header {
+    transform: translateY(-3px);
+    border-color: #e50914;
+  }
+  /* Muestra la imagen del check */
+  .plan-card input:checked + .plan-header .checkmark {
+    opacity: 1;
+  }
+  /* Fondo claro en el cuerpo de la tarjeta */
+  .plan-card input:checked ~ .plan-features {
+    background: #fafafa;
+    border-color: #e50914;
+  }
+  
+  /* Hover sobre la card */
+  .plan-card:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    border-color: #aaa;
+  }
+  
+  .planes-footer {
+    max-width: 1330px;
+    margin: 8px auto 60px auto;
+    text-align: justify; /* Cambio realizado aquí */
+    color: #333;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .planes-footer .nota {
+    margin-bottom: 10px;
+    color: #666;
+  }
+  .planes-footer a {
+    color: #0071eb;
+    text-decoration: none;
+  }
+  .planes-footer a:hover {
+    text-decoration: underline;
+  }
+  
+  .boton-siguiente-container {
+    text-align: center; /* Centramos solo el botón */
+    margin-top: 30px;
+  }
+  .boton-siguiente {
+    background-color: #e50914;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 14px 50px;
     border: none;
-    padding: 10px;
+    border-radius: 6px;
     cursor: pointer;
-    margin-left: 10px;
-}
-
-    .add-to-cart:hover {
-        background-color: #218838;
-    }
-
-.remove-from-cart {
-    background-color: #dc3545;
-}
-
-    .remove-from-cart:hover {
-        background-color: #c82333;
-    }
-
-#lista-carrito {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 20px;
-}
-
-#total-carrito {
-    border-top: 1px solid #ddd;
-    padding: 10px;
-    width: 90%;
-    margin: 0 auto;
-}
-
-#pagar {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-}
-
-    #pagar:hover {
-        background-color: #c82333;
-    }
-
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    margin-top: 50px;
-}
+    transition: background-color 0.3s;
+  }
+  .boton-siguiente:hover {
+    background-color: #b20710;
+  }
+  
+  
