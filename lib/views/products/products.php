@@ -41,7 +41,7 @@ require '../shared/header/header.php';
 
       <!-- PRO -->
       <label class="plan-card">
-        <input type="radio" name="plan" value="estandar" />
+        <input type="radio" name="plan" value="pro" />
         <div class="plan-header">
           <h3>Pro</h3>
           <p>8.5 GB</p>
@@ -56,7 +56,7 @@ require '../shared/header/header.php';
 
       <!-- AVANZADO -->
       <label class="plan-card">
-        <input type="radio" name="plan" value="basico" />
+        <input type="radio" name="plan" value="avanzado" />
         <div class="plan-header">
           <h3>Avanzado</h3>
           <p>3.5 GB</p>
@@ -71,7 +71,7 @@ require '../shared/header/header.php';
 
       <!-- ESENCIAL -->
       <label class="plan-card">
-        <input type="radio" name="plan" value="basico" />
+        <input type="radio" name="plan" value="esencial" />
         <div class="plan-header">
           <h3>Esencial</h3>
           <p>2 GB</p>
