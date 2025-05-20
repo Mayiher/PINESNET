@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>PINESNET</title>
-    <link rel="icon" href="/assets/images/logo.jpg" type="image/png">
+    <link rel="icon" href="/assets/images/logo2.png" type="image/png">
     <link rel="stylesheet" href="header.css">
 
 <?php
@@ -24,7 +24,7 @@ session_start();
     <div class="top-bar">
         <!-- Logo y barra de búsqueda -->
         <div class="logo-search-container">
-            <img src="/assets/images/logo.jpg" alt="Logo" class="logo">
+            <img src="/assets/images/logo2.jpg" alt="Logo" class="logo">
         </div>
 
         <!-- Iconos a la derecha -->
@@ -104,7 +104,7 @@ session_start();
             <?php
                 }
             ?>
-                <a href="/src/carrito.php">
+                <a href="/lib/views/products/products.php">
                     <span class="icon"><img src="/assets/images/carrito-de-compras.png" alt=""></span> Carrito (<?php echo $cartCount; ?>)
                 </a>
                 <a href="#">

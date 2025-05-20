@@ -9,7 +9,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 16px;
     background-color: white;
 }
 
@@ -21,8 +21,8 @@ body {
 
 /* Estilos para el logo */
 .logo {
-    max-width: 60px;
-    margin-right: 350px; /* A�ade un margen a la derecha del logo */
+    max-width: 200px;
+    margin-right: 400px; /* A�ade un margen a la derecha del logo */
 }
 
 .search-container {
@@ -112,12 +112,12 @@ body {
     display: flex;
     justify-content: flex-start; /* Alinea los elementos a la izquierda */
     padding: 10px;
-    background-color: #F0F0F0; /* Fondo */
+    background-color: #9d9d9d; /* Fondo */
 }
 
     .nav-menu li {
         display: block;
-        margin-right: 10px; /* Ajusta esto al espacio que desees entre los elementos */
+        margin-right: 15px; /* Ajusta esto al espacio que desees entre los elementos */
         position: relative; /* A�ade una posici�n relativa para permitir el posicionamiento absoluto de los men�s desplegables */
     }
 
