@@ -129,6 +129,14 @@
 .btn-del { background: #d9534f; }
 .btn-del:hover { background: #c12e2a; }
 
+/* ───────── Botón Detalles de Venta ───────── */
+.btn-details {
+  background-color: #28a745; /* verde */
+}
+.btn-details:hover {
+  background-color: #218838;
+}
+
 /* ───────── Modal de CRUD ───────── */
 .modal-backdrop {
   position: fixed;
@@ -155,8 +163,42 @@
 }
 .modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
 
+/* ───────── Modal Detalles de Venta ───────── */
+.modal .close {
+  cursor: pointer;
+  user-select: none;       /* impide que se marque como texto */
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+#detailsModal .modal {
+  width: 500px; /* un poco más ancho para la tabla */
+}
+#detailsModal h3 {
+  margin-bottom: 15px;
+}
+#detailsContent table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+#detailsContent th,
+#detailsContent td {
+  padding: 8px 6px;
+  border: 1px solid #e0e0e0;
+  text-align: left;
+  font-size: 14px;
+}
+#detailsContent thead {
+  background: #f8f9fa;
+}
+#detailsContent tbody tr:hover {
+  background: #f1f1f1;
+}
+
 /* ───────── Media Queries ───────── */
 @media (max-width: 768px) {
   .admin-sidebar { display: none; }
   .admin-main { padding: 10px; }
+  #detailsModal .modal { width: 90%; }
 }

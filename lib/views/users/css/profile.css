@@ -1,73 +1,89 @@
-/* profile.css */
+/* Reset */
+* { margin:0; padding:0; box-sizing:border-box }
+body { font-family:Arial,sans-serif; background:#EDF3FC }
 
-/* Reset y body */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: Arial, sans-serif; background: #EDF3FC; }
-
-/* Grid principal */
+/* Layout */
 .profile-page {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  grid-template-rows: auto auto;
-  gap: 24px;
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 0 16px;
+  display:grid;
+  grid-template-columns:280px 1fr;
+  grid-template-rows:auto auto;
+  gap:24px;
+  max-width:1000px; margin:40px auto; padding:0 16px;
 }
 
 /* Tarjetas */
-.card { background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); padding: 20px; }
-.orders { grid-column: 1 / -1; }
+.card { background:#fff; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.05); padding:20px }
+.orders { grid-column:1 / -1 }
 
 /* Perfil izquierdo */
-.profile-summary { text-align: center; }
-.profile-summary h2 {
-  margin-bottom: 16px;
-  color: #2c3e50;
-  font-size: 1.25rem;
-}
+.profile-summary { text-align:center }
+.profile-summary h2 { margin-bottom:16px; color:#2c3e50; font-size:1.25rem }
 .avatar-container {
-  width: 120px;
-  height: 120px;
-  margin: 24px auto 12px; /* aumentado margin-top para separar del título */
-  overflow: hidden;
-  border-radius: 50%;
-  border: 2px solid #2c6e9e;
+  width:120px; height:120px; margin:24px auto 12px;
+  overflow:hidden; border-radius:50%; border:2px solid #2c6e9e;
 }
-.avatar-container img { width:100%; height:100%; object-fit: cover; display:block; }
+.avatar-container img { width:100%; height:100%; object-fit:cover }
 
-/* Vista previa: controles */
-#preview-controls { margin-top:12px; display:flex; justify-content:center; gap:12px; }
-#preview-controls.hidden { display:none; }
+/* Preview controls */
+#preview-controls { margin-top:12px; display:flex; justify-content:center; gap:12px }
+#preview-controls.hidden { display:none }
 #cancel-btn, #confirm-btn {
-  padding:6px 12px; border-radius:4px; font-size:0.9rem; cursor:pointer; border:none;
+  padding:6px 12px; border:none; border-radius:4px; font-size:0.9rem; cursor:pointer
 }
-#cancel-btn { background:#ccc; }
-#confirm-btn { background:#2c6e9e; color:#fff; transition:background 0.2s; }
-#confirm-btn:hover { background:#23597a; }
+#cancel-btn { background:#ccc }
+#confirm-btn { background:#2c6e9e; color:#fff; transition:background .2s }
+#confirm-btn:hover { background:#23597a }
 .profile-summary button {
-  background:#2c6e9e; color:#fff; border:none; padding:6px 12px;
-  border-radius:4px; cursor:pointer; font-size:0.9rem; margin-top:8px; transition:background 0.2s;
+  margin-top:8px; padding:6px 12px; border:none; border-radius:4px;
+  background:#2c6e9e; color:#fff; cursor:pointer; transition:background .2s
 }
-.profile-summary button:hover { background:#23597a; }
+.profile-summary button:hover { background:#23597a }
 
 /* Detalles derecho */
 .profile-details {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px 32px;
+  display:grid; grid-template-columns:1fr 1fr; gap:12px 32px
 }
-.profile-details .field { margin-bottom:12px; }
-.profile-details .field label { display:block; font-weight:bold; margin-bottom:4px; color:#2c3e50; }
-.profile-details .field .value { color:#333; }
+.profile-details .field { margin-bottom:12px }
+.profile-details .field label { display:block; margin-bottom:4px; font-weight:bold; color:#2c3e50 }
+.profile-details .field .value { color:#333 }
 
-/* Pedidos */
-.orders h2 {
-  margin-bottom:8px;
-  color:#2c6e9e;
-  border-bottom:2px solid #2c6e9e;
-  padding-bottom:4px;
+/* Tabla de pedidos */
+.orders-table {
+  width:100%; border-collapse:collapse; margin-top:12px
 }
-.orders .empty {
-  text-align:center; padding:16px; color:#999; background:#f5f5f5; border-radius:4px;
+.orders-table th, .orders-table td {
+  padding:8px; border:1px solid #ccc; text-align:center
 }
+.orders-table thead { background:#f0f0f0 }
+
+/* Botón detalles */
+.btn-details {
+  padding:6px 10px; border:none; border-radius:4px;
+  background:#01ABE4; color:#fff; cursor:pointer; transition:background .2s
+}
+.btn-details:hover { background:#0288A7 }
+
+/* Tabla de detalles (oculta y modal) */
+.detail-table {
+  width:100%; border-collapse:collapse; margin:12px 0
+}
+.detail-table th, .detail-table td {
+  padding:6px; border:1px solid #ddd; text-align:center; font-size:0.9rem
+}
+.detail-table thead { background:#e0e0e0 }
+.detail-table tr:nth-child(odd) { background:#fafafa }
+
+/* Modal genérico */
+.modal {
+  display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.4); z-index:1000
+}
+.modal-content {
+  background:#fff; margin:10% auto; padding:20px;
+  border-radius:8px; width:80%; max-width:600px; position:relative
+}
+.close {
+  position:absolute; top:8px; right:12px; font-size:24px;
+  font-weight:bold; cursor:pointer; color:#666
+}
+.close:hover { color:#000 }
