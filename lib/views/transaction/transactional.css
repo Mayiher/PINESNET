@@ -8,14 +8,14 @@
 }
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: #f1f3f6;
+  background: #EDF3FC;
 }
 
 /* Wrapper contenedor */
 .wrapper {
   position: relative;
   width: 960px;
-  height: 600px;
+  height: 660px;
   margin: 40px auto;
 }
 
@@ -26,11 +26,34 @@ body {
   left: 0;
   width: 48%;
   height: 100%;
-  background: #8a2be2;
+  /* Degradado de fondo solicitado */
+  background: linear-gradient(148.39deg, #01ABE4 7.45%, #1F375B 80.95%);
   color: #f1f3f6;
   padding: 40px;
-  border-radius: 8px;
+  border-top-left-radius: 26px;
+  border-bottom-left-radius: 24px;
 }
+
+/* --- Detalle del plan seleccionado --- */
+.summary-panel .plan-summary {
+  margin-bottom: 24px;
+}
+.summary-panel .plan-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.summary-panel .plan-details {
+  list-style: none;
+  padding-left: 0;
+  font-size: 0.95rem;
+  margin-bottom: 16px;
+}
+.summary-panel .plan-details li {
+  margin: 4px 0;
+}
+
+/* --- Cantidad, comisión y total --- */
 .summary-panel .amount {
   font-size: 2.4rem;
   font-weight: 700;
@@ -106,7 +129,8 @@ body {
   width: 52%;
   height: 100%;
   background: #fff;
-  border-radius: 8px;
+  border-top-right-radius: 26px;
+  border-bottom-right-radius: 26px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
@@ -144,7 +168,7 @@ body {
   transition: color 0.2s;
 }
 .payment-panel .tab.active {
-  color: #8e22bb;
+  color: #01ABE4;
 }
 .payment-panel .tab.active::after {
   content: '';
@@ -153,7 +177,7 @@ body {
   left: 24px;
   right: 24px;
   height: 3px;
-  background: #8e22bb;
+  background: #01ABE4;
   border-radius: 2px 2px 0 0;
 }
 .payment-panel .more {
@@ -174,7 +198,7 @@ body {
   display: block;
 }
 
-/* Selección de Tarjetas */
+/* -- Selección de Tarjetas -- */
 .card-selection {
   display: flex;
   gap: 12px;
@@ -195,11 +219,11 @@ body {
   transition: background 0.2s;
 }
 .circle-btn.selected {
-  background: #8a2be2;
+  background: #01ABE4;
   color: #fff;
 }
 
-/* Etiquetas */
+/* -- Etiquetas -- */
 .field-label {
   display: block;
   font-size: 0.9rem;
@@ -208,7 +232,7 @@ body {
   color: #333;
 }
 
-/* Inputs Estilizados */
+/* -- Inputs Estilizados -- */
 .input-group {
   position: relative;
   margin: 18px 0;
@@ -237,7 +261,7 @@ body {
   height: auto;
 }
 
-/* Dos columnas */
+/* -- Dos Columnas -- */
 .two-col {
   display: flex;
   gap: 24px;
@@ -247,15 +271,15 @@ body {
   flex: 1;
 }
 
-/* Botón Pay */
+/* -- Botón Pay -- */
 .pay-btn {
   margin-top: auto;
   margin-bottom: 24px;
   width: 100%;
   padding: 16px;
-  background: #8a2be2;
+  background: #01ABE4;
   border: none;
-  border-radius: 4px;
+  border-radius: 16px;
   color: #fff;
   font-size: 1.15rem;
   font-weight: 600;
@@ -264,4 +288,20 @@ body {
 }
 .pay-btn:hover {
   background: #28b463;
+}
+
+/* -- Media Queries -- */
+@media (max-width: 1024px) {
+  .wrapper {
+    width: 90%;
+    height: auto;
+    margin: 20px auto;
+  }
+  .summary-panel,
+  .payment-panel {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
 }

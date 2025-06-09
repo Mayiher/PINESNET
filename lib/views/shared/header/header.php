@@ -1,126 +1,86 @@
 <?php
 session_start();
-?>
 
+// 1) ¿Hay usuario logueado?
+$isLogged = isset($_SESSION['users']) && !empty($_SESSION['users']);
+
+// 2) Datos por defecto
+$nombre   = '';
+$apellido = '';
+$isAdmin  = false;
+
+// 3) Si hay sesión, extraemos datos y rol
+if ($isLogged) {
+    $sessionData = $_SESSION['users'];
+    $nombre      = $sessionData['nombre']   ?? '';
+    $apellido    = $sessionData['apellido'] ?? '';
+    $rolRaw      = $sessionData['rol']      ?? '';
+
+    // Normalizamos a minúsculas y comprobamos
+    $rol = strtolower($rolRaw);
+    if ($rol === 'administrator') {
+        $isAdmin = true;
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>PINESNET</title>
     <link rel="icon" href="/assets/images/logo2.png" type="image/png">
-    <link rel="stylesheet" href="header.css">
-
-<?php
-    $loggedIn = isset($_SESSION['users']) || isset($_SESSION['employees']) || isset($_SESSION['admin']);
-?>
-<script>
-    const isLoggedIn = <?php echo $loggedIn ? 'true' : 'false'; ?>;
-</script>
-
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <script>
+        window.isLoggedIn = <?php echo $isLogged ? 'true' : 'false'; ?>;
+    </script>
 </head>
 <body>
+    <header class="main-header">
 
-    <!-- Barra superior -->
-    <div class="top-bar">
-        <!-- Logo y barra de búsqueda -->
-        <div class="logo-search-container">
-            <img src="/assets/images/logo2.jpg" alt="Logo" class="logo">
+        <!-- IZQUIERDA: Logo -->
+        <div class="header-left">
+            <a href="/index.php">
+                <img src="/assets/images/logo.png" alt="Pinesnet Logo" class="logo">
+            </a>
         </div>
 
-        <!-- Iconos a la derecha -->
-        <div class="icons">
-            <?php
-            // Inicializamos variables
-            $isEmployee = false;  // Indicará si se ha iniciado sesión como empleado
-            $isAdmin = false;     // Indicará si el empleado tiene rol de administrador
-            $nombre = '';
-            $apellido = '';
-            $cartCount = 0;       // Contador del carrito
+        <!-- CENTRO: Menú -->
+        <nav class="nav-center">
+            <ul class="nav-menu">
+                <li><a href="/index.php" class="nav-link">Inicio</a></li>
+                <li><a href="/lib/views/benefits/benefits.php" class="nav-link">Beneficios</a></li>
+                <li><a href="/lib/views/products/products.php" class="nav-link">Pines o paquetes</a></li>
+            </ul>
+        </nav>
 
-            // Revisamos si existe sesión para empleado en 'employees' o 'admin'
-            if (isset($_SESSION['employees']) && !empty($_SESSION['employees'])) {
-                $sessionData = $_SESSION['employees'];
-                $isEmployee = true;
-            } elseif (isset($_SESSION['admin']) && !empty($_SESSION['admin'])) {
-                $sessionData = $_SESSION['admin'];
-                $isEmployee = true;
-            } elseif (isset($_SESSION['users']) && !empty($_SESSION['users'])) {
-                $sessionData = $_SESSION['users'];
-            } else {
-                $sessionData = [];
-            }
-
-            if (!empty($sessionData)) {
-                $nombre = $sessionData['nombre'] ?? '';
-                $apellido = $sessionData['apellido'] ?? '';
-                if ($isEmployee) {
-                    // Verificamos el rol del empleado (convertimos a minúsculas para evitar problemas)
-                    $isAdmin = (isset($sessionData['rol']) && strtolower($sessionData['rol']) === 'administrador');
-                } else {
-                    // Si es usuario normal, obtenemos el contador del carrito
-                    $cartCount = isset($_SESSION['carrito']) ? count($_SESSION['carrito']) : 0;
-                }
-            }
-
-            // Si se detecta un empleado, se muestra su nombre y, si es administrador, el enlace de administración
-            if ($isEmployee) {
-            ?>
-                <div class="dropdown-users">
-                    <a href="#">
-                        <span class="icon"><img src="/assets/images/usuario.png" alt=""></span>
-                        <?php echo $nombre . ' ' . $apellido; ?>
-                    </a>
-                    <div class="dropdown-content-users">
-                        <a href="/lib/views/users/perfil.php">Perfil</a>
-                        <a href="/lib/views/users/sign-out.php">Cerrar sesión</a>
-                    </div>
-                </div>
+        <!-- DERECHA: Acceder / Usuario -->
+        <div class="header-right">
+            <?php if (!$isLogged): ?>
+                <a href="/lib/views/auth/login-register/login-register.php" class="btn-login">
+                    <img src="/assets/images/logo-login.png" alt="Icono Usuario" class="btn-icon">
+                    <span class="btn-text">Acceder</span>
+                </a>
+            <?php else: ?>
                 <?php if ($isAdmin): ?>
-                    <a href="/lib/views/employees/index_admin.php">
-                        <span class="icon"><img src="/assets/images/admin.png" alt=""></span> Administración
+                    <!-- Solo administrador ve ajustes -->
+                    <a href="/lib/views/employees/index_admin.php" class="settings-link">
+                        <img src="/assets/images/admin.png" alt="Admin" class="icon-img-logged">
                     </a>
                 <?php endif; ?>
-            <?php
-            } else {
-                // Si es usuario normal o no hay sesión
-                if (!empty($nombre)) {
-            ?>
-                <div class="dropdown-users">
-                    <a href="#">
-                        <span class="icon"><img src="/assets/images/usuario.png" alt=""></span>
-                        <?php echo $nombre . ' ' . $apellido; ?>
-                    </a>
-                    <div class="dropdown-content-users">
-                        <a href="/lib/views/users/perfil.php">Perfil</a>
+
+                <div class="dropdown-users-logged">
+                    <div class="user-link-logged">
+                        <img src="/assets/images/usuario.png" alt="Usuario" class="user-icon-logged">
+                        <span class="user-name"><?php echo htmlspecialchars("$nombre $apellido"); ?></span>
+                    </div>
+                    <div class="dropdown-content-users-logged">
+                        <a href="/lib/views/users/profile.php">Perfil</a>
                         <a href="/lib/views/users/sign-out.php">Cerrar sesión</a>
                     </div>
                 </div>
-            <?php
-                } else {
-            ?>
-                <a href="/lib/views/auth/login/login.php">
-                    <span class="icon"><img src="/assets/images/usuario.png" alt=""></span> Entrar
-                </a>
-            <?php
-                }
-            ?>
-                <a href="/lib/views/products/products.php">
-                    <span class="icon"><img src="/assets/images/carrito-de-compras.png" alt=""></span> Carrito (<?php echo $cartCount; ?>)
-                </a>
-                <a href="#">
-                    <span class="icon"><img src="/assets/images/favorito.png" alt=""></span> Favoritos
-                </a>
-            <?php
-            }
-            ?>
+            <?php endif; ?>
         </div>
-    </div>
 
-    <!-- Menú de navegación -->
-    <ul class="nav-menu">
-        <li><a href="/index.php">Inicio</a></li>
-        <li><a href="/lib/views/products/products.php">Productos</a></li>
-    </ul>
-
+    </header>
 </body>
 </html>

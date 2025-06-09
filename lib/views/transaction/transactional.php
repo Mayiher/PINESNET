@@ -3,10 +3,14 @@
 
 require '../shared/header/header.php';
 
-// 2) Obtener el precio desde GET (en COP)
-$price = isset($_GET['price']) ? intval($_GET['price']) : 0;
+// 1) Configurar zona horaria
+date_default_timezone_set('America/Bogota');
 
-// 3) Función para generar un Invoice ID aleatorio de 10 caracteres (A–Z0–9)
+// 2) Obtener el precio y el plan desde GET
+$precioBase = isset($_GET['price']) ? intval($_GET['price']) : 0;
+$planKey    = isset($_GET['plan'])  ? $_GET['plan']        : '';
+
+// 3) Generar ID de factura
 function generarInvoiceId($length = 10) {
     $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     $id = '';
@@ -17,51 +21,114 @@ function generarInvoiceId($length = 10) {
 }
 $invoiceId = generarInvoiceId(10);
 
-// 4) Fecha y hora actual para “Next payment”
-date_default_timezone_set('America/Bogota');
-$nextPayment = date('d F, Y H:i'); // Ej. 19 May, 2025 14:35
+// 4) Fecha y hora para “Fecha de compra”
+$fechaCompra = date('d F, Y H:i'); // instante de la compra
 
-// 5) Calcular total (precio + comisión fija de 1.99)
-$commission = 1.99;
-$total = $price + $commission;
+// 5) Detalles de planes y cálculo de fecha de expiración
+$planes = [
+    'premium'  => ['nombre'=>'Premium','gb'=>'18 GB','vigencia'=>'30 días','precio'=>30000],
+    'pro'      => ['nombre'=>'Pro','gb'=>'8.5 GB','vigencia'=>'15 días','precio'=>15000],
+    'avanzado' => ['nombre'=>'Avanzado','gb'=>'3.5 GB','vigencia'=>'10 días','precio'=>10000],
+    'esencial' => ['nombre'=>'Esencial','gb'=>'2 GB','vigencia'=>'7 días','precio'=>7000],
+    'basico'   => ['nombre'=>'Básico','gb'=>'200 MB','vigencia'=>'1 día','precio'=>1000],
+];
+$detallePlan = $planes[$planKey] ?? null;
+
+if ($detallePlan) {
+    // Extraer la cantidad de días de la cadena "X días"
+    $vigenciaDias = intval($detallePlan['vigencia']);
+    // Calcular fecha de expiración sumando esos días a la fecha actual
+    $fechaExpiracion = date('d F, Y H:i', strtotime("+{$vigenciaDias} days"));
+} else {
+    $fechaExpiracion = '';
+}
+
+// 6) Calcular total
+$comision = 1.99;
+$total    = $precioBase + $comision;
 ?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Resumen de Pago</title>
+  <link rel="stylesheet" href="../shared/header/header.css">
+  <link rel="stylesheet" href="../shared/footer/footer.css">
+  <link rel="stylesheet" href="transactional.css">
 
-<!-- Incluir el CSS específico para esta página -->
-<link rel="stylesheet" href="../shared/header/header.css">
-<link rel="stylesheet" href="transactional.css">
+  <!-- jsPDF y AutoTable (para PDF en cliente) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+  <!-- Datos que usará transactional.js -->
+  <script>
+    window.paymentData = {
+      plan:             "<?php echo addslashes($detallePlan['nombre']   ?? ''); ?>",
+      gb:               "<?php echo addslashes($detallePlan['gb']       ?? ''); ?>",
+      vigencia:         "<?php echo addslashes($detallePlan['vigencia'] ?? ''); ?>",
+      precioPlan:       <?php echo $detallePlan['precio']            ?? 0; ?>,
+      precioBase:       <?php echo $precioBase; ?>,
+      comision:         <?php echo $comision; ?>,
+      total:            <?php echo $total; ?>,
+      invoiceId:        "<?php echo $invoiceId; ?>",
+      fechaCompra:      "<?php echo addslashes($fechaCompra); ?>",
+      fechaExpiracion:  "<?php echo addslashes($fechaExpiracion); ?>"
+    };
+  </script>
+</head>
+<body>
 
 <div class="wrapper">
 
   <!-- PANEL RESUMEN -->
   <div class="summary-panel">
-    <div class="amount">$<?php echo number_format($price, 0, ',', '.'); ?>,00</div>
+    <?php if ($detallePlan): ?>
+      <div class="plan-summary">
+        <div class="plan-name"><?php echo htmlspecialchars($detallePlan['nombre']); ?></div>
+        <ul class="plan-details">
+          <li>Datos incluidos: <?php echo htmlspecialchars($detallePlan['gb']); ?></li>
+          <li>Vigencia: <?php echo htmlspecialchars($detallePlan['vigencia']); ?></li>
+          <li>Precio plan: $<?php echo number_format($detallePlan['precio'],0,',','.'); ?> COP</li>
+        </ul>
+        <hr>
+      </div>
+    <?php endif; ?>
+
+    <div class="amount">$<?php echo number_format($precioBase,0,',','.'); ?> COP</div>
     <div class="line">
-      <span class="label">Commission</span>
-      <span class="value">$<?php echo number_format($commission, 2, ',', '.'); ?></span>
+      <span class="label">Comisión</span>
+      <span class="value">$<?php echo number_format($comision,2,',','.'); ?> COP</span>
     </div>
     <div class="line">
-      <span class="label">Total</span>
-      <span class="value total">$<?php echo number_format($total, 2, ',', '.'); ?></span>
+      <span class="label">Total a pagar</span>
+      <span class="value total">$<?php echo number_format($total,2,',','.'); ?> COP</span>
     </div>
     <hr>
     <div class="info-item">
       <i class="far fa-file-alt"></i>
       <div class="info-text-block">
-        <span class="small-label">Invoice ID:</span>
+        <span class="small-label">ID de factura:</span>
         <span class="info-text"><?php echo $invoiceId; ?></span>
       </div>
     </div>
     <div class="info-item">
       <i class="far fa-calendar-alt"></i>
       <div class="info-text-block">
-        <span class="small-label">Next payment:</span>
-        <span class="info-text"><?php echo $nextPayment; ?></span>
+        <span class="small-label">Fecha de compra:</span>
+        <span class="info-text"><?php echo $fechaCompra; ?></span>
+      </div>
+    </div>
+    <div class="info-item">
+      <i class="far fa-calendar-alt"></i>
+      <div class="info-text-block">
+        <span class="small-label">Fecha de expiración:</span>
+        <span class="info-text"><?php echo $fechaExpiracion; ?></span>
       </div>
     </div>
     <div class="support">
       <div>
-        <span>Customer Support:</span><br>
-        <span>online chat 24/7</span>
+        <span>Soporte al cliente:</span><br>
+        <span>chat en línea 24/7</span>
       </div>
       <button class="chat-btn"><i class="fas fa-comment-dots"></i></button>
     </div>
@@ -70,64 +137,79 @@ $total = $price + $commission;
   <!-- PANEL DE PAGO -->
   <div class="payment-panel">
     <div class="header">
-      <h2>Payment methods</h2>
+      <h2>Métodos de pago</h2>
       <i class="fas fa-bars menu-icon"></i>
     </div>
     <div class="tabs">
-      <button class="tab active" data-target="credit">Credit Card</button>
-      <button class="tab" data-target="mobile">Mobile Payment</button>
-      <a href="#" class="more">+ More</a>
+      <button class="tab active" data-target="credit">Tarjeta de crédito</button>
+      <button class="tab" data-target="mobile">Pago móvil</button>
+      <a href="#" class="more">+ Más</a>
     </div>
+    
     <div class="tab-content">
-      <!-- Crédito -->
       <div id="credit" class="content active">
-        <div class="card-selection">
-          <button class="circle-btn"><i class="fas fa-plus"></i></button>
-          <button class="circle-btn selected">5949</button>
-          <button class="circle-btn">3894</button>
-        </div>
-
-        <label class="field-label">Credit Card</label>
-        <div class="input-group">
-          <input type="text" placeholder="5136 1845 5468 3894">
-          <img src="/assets/icons/mastercard.png" alt="MC" class="card-icon">
-        </div>
-
-        <div class="two-col">
-          <div class="input-group small">
-            <label class="field-label">Expiration Date</label>
-            <input type="text" placeholder="MM/YY">
-            <i class="far fa-calendar-alt"></i>
+        <form id="paymentForm">
+          <label class="field-label">Número de tarjeta</label>
+          <div class="input-group">
+            <input 
+              type="text" 
+              placeholder="5136 1845 5468 3894" 
+              required 
+              pattern="\d{4}\s?\d{4}\s?\d{4}\s?\d{4}" 
+              title="Ingresa 16 dígitos de tu tarjeta" 
+            >
+            <img src="/assets/icons/mastercard.png" alt="MC" class="card-icon">
           </div>
-          <div class="input-group small">
-            <label class="field-label">Code CVV</label>
-            <input type="password" placeholder="•••">
-            <i class="fas fa-lock"></i>
+
+          <div class="two-col">
+            <div class="input-group small">
+              <label class="field-label">Fecha de expiración</label>
+              <input 
+                type="text" 
+                placeholder="MM/AA" 
+                required 
+                pattern="(0[1-9]|1[0-2])\/\d{2}" 
+                title="Formato MM/AA" 
+              >
+              <i class="far fa-calendar-alt"></i>
+            </div>
+            <div class="input-group small">
+              <label class="field-label">Código CVV</label>
+              <input 
+                type="password" 
+                placeholder="•••" 
+                required 
+                pattern="\d{3,4}" 
+                title="3 o 4 dígitos" 
+              >
+              <i class="fas fa-lock"></i>
+            </div>
           </div>
-        </div>
 
-        <div class="input-group">
-          <label class="field-label">Name</label>
-          <input type="text" placeholder="VALDIMIR BEREZOVKIY">
-          <i class="fas fa-user"></i>
-        </div>
+          <div class="input-group">
+            <label class="field-label">Titular</label>
+            <input 
+              type="text" 
+              placeholder="NOMBRE COMPLETO" 
+              required 
+              minlength="3"
+            >
+            <i class="fas fa-user"></i>
+          </div>
 
-        <button class="pay-btn">Pay $<?php echo number_format($total, 2, ',', '.'); ?></button>
+          <button type="submit" class="pay-btn">
+            Pagar $<?php echo number_format($total, 2, ',', '.'); ?> COP
+          </button>
+        </form>
       </div>
 
-      <!-- Móvil -->
       <div id="mobile" class="content">
-        <p>Mobile payment form here…</p>
+        <p>Formulario de pago móvil…</p>
       </div>
     </div>
   </div>
 
 </div>
 
-<!-- Incluir el JS de tabs -->
 <script src="transactional.js"></script>
-
-<?php
-// 6) Incluir el footer (cierra </body></html>)
-require '../shared/footer/footer.php';
-?>
+<?php require '../shared/footer/footer.php'; ?>

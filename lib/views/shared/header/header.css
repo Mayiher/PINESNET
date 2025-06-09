@@ -1,155 +1,280 @@
+/* ===============================================================
+   ========== 1. Estilos globales y contenedor principal =========
+   =============================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-/* Estilos globales */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Cambia el tipo de letra a Times New Roman */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Estilos para la barra superior */
-.top-bar {
+/* ---------- CONTENEDOR PRINCIPAL DEL HEADER ---------- */
+.main-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px;
-    background-color: white;
+    align-items: center;                /* Centrar verticalmente todos los contenidos */
+    justify-content: space-between;     /* Logo izquierda, nav centro, header-right derecha */
+    background-color: #EDF3FC;          /* Fondo del header */
+    padding: 24px;                      /* 24px arriba/abajo, 24px izquierda/derecha */
+    border-bottom: 1px solid #d0d7de;
 }
 
-/* Estilos para el logo y la barra de b�squeda */
-.logo-search-container {
-    display: flex;
-    align-items: center;
+/* ===============================================================
+   ========== 2. LOGO (izquierda) =================================
+   =============================================================== */
+.header-left .logo {
+    width: 371px;   /* ancho fijo */
+    height: 88px;   /* alto fijo */
+    object-fit: contain;
 }
 
-/* Estilos para el logo */
-.logo {
-    max-width: 200px;
-    margin-right: 400px; /* A�ade un margen a la derecha del logo */
+/* ===============================================================
+   ========== 3. MENÚ DE NAVEGACIÓN (centro) ======================
+   =============================================================== */
+.nav-center {
+    flex: 1;                       /* Ocupa todo el espacio intermedio */
+    text-align: center;            /* Centra los <ul> horizontalmente */
 }
 
-.search-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: grey; /* Fondo de color gris */
-    border-radius: 25px; /* Esquinas redondeadas */
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Añade una sombra */
-}
-
-
-/* Estilos para la barra de b�squeda */
-.search-bar {
-    padding: 6px;
-    border-radius: 26px;
-    border: none;
-    background-color: #DEDEDE; /* Fondo de color gris */
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* A�ade una sombra */
-    width: 450px; /* Ajusta esto al ancho que desees */
-    height: 30px; /* Ajusta esto a la altura que desees */
-}
-
-/* Estilos para el bot�n de b�squeda */
-.search-button {
-    background: linear-gradient(to right, purple, blue); /* Degradado de morado a azul */
-    border: none;
-    color: white;
-    padding: 5px;
-    cursor: pointer;
-    border-radius: 25px; /* Esto redondea las esquinas del bot�n */
-    width: 50px; /* Ajusta esto al ancho que desees */
-    height: 30px; /* Ajusta esto a la altura que desees */
-}
-
-/* Estilos para los iconos a la derecha */
-.icons a {
-    color: black; /* Texto de color negro */
-    margin-left: 8px;
-    text-decoration: none; /* Elimina la l�nea inferior */
-}
-
-    .icons a .icon img {
-        width: 30px; /* Cambia el ancho de los iconos de imagen */
-        height: 30px; /* Cambia la altura de los iconos de imagen */
-        vertical-align: middle; /* Centra el icono verticalmente */
-    }
-
-    .dropdown-users {
-        position: relative;
-        display: inline-block;
-    }
-    
-    .dropdown-content-users {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        padding: 12px 16px;
-        z-index: 1;
-    }
-    
-    .dropdown-content-users a {
-        display: block;
-    }
-    
-    .dropdown-users:hover .dropdown-content-users {
-        display: block;
-    }
-    
-
-/* Estilos para los iconos */
-.icon {
-    margin-right: 2px; /* A�ade un margen a la derecha del icono */
-}
-
-
-/* Estilos para los iconos */
-.icon {
-    margin-right: 5px; /* A�ade un margen a la derecha del icono */
-}
-
-/* Estilos para el men� de navegaci�n */
 .nav-menu {
-    list-style-type: none;
-    display: flex;
-    justify-content: flex-start; /* Alinea los elementos a la izquierda */
-    padding: 10px;
-    background-color: #9d9d9d; /* Fondo */
+    list-style: none;
+    display: inline-flex;          /* Los <li> en línea uno junto a otro */
+    gap: 48px;                     /* Espacio entre cada <li> */
+    align-items: center;
 }
 
-    .nav-menu li {
-        display: block;
-        margin-right: 15px; /* Ajusta esto al espacio que desees entre los elementos */
-        position: relative; /* A�ade una posici�n relativa para permitir el posicionamiento absoluto de los men�s desplegables */
-    }
+.nav-menu li {
+    position: relative;
+}
 
-    /* Estilos para los enlaces del men� de navegaci�n */
-    .nav-menu a {
-        color: black; /* Texto de color negro */
-        text-decoration: none; /* Elimina la l�nea inferior */
-        transition: color 0.5s ease; /* A�ade una transici�n lenta al cambio de color */
-    }
+/* --- 3.1 Estilos generales para cada enlace del menú --- */
+.nav-link {
+    display: inline-block;
+    font-family: 'Instrument Sans', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;             /* Para centrar verticalmente dentro de 29px de alto */
+    letter-spacing: 0;
+    text-align: center;
+    color: #27628E;                /* Color del texto */
+    background: none;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
 
-    /* Estilos para el enlace activo */
-    .nav-menu .active {
-        color: purple; /* Texto de color morado */
-    }
+.nav-link:hover,
+.nav-link.active {
+    color: #1F4E7A; /* Tono más oscuro al pasar o activo */
+}
 
-    /* Estilos para los enlaces del men� de navegaci�n cuando el mouse pasa por encima */
-    .nav-menu a:hover {
-        color: purple; /* Texto de color morado */
-    }
+/* --- 3.2 Dimensiones específicas según posición en la lista --- */
+/* “Inicio” (primer <li>) */
+.nav-menu li:nth-child(1) .nav-link {
+    width: 100px;    /* ancho fijo */
+    height: 29px;    /* alto fijo */
+    padding: 0;      /* Sin padding interno */
+}
 
-/* Estilos para el men� desplegable */
-.dropdown-menu {
+/* “Beneficios” (segundo <li>) */
+.nav-menu li:nth-child(2) .nav-link {
+    width: 240px;    /* ancho fijo */
+    height: 29px;    /* alto fijo */
+    padding: 0;
+}
+
+/* “Pines o paquetes” (tercer <li>) */
+.nav-menu li:nth-child(3) .nav-link {
+    width: 233px;    /* ancho fijo */
+    height: 29px;    /* alto fijo */
+    padding: 0;
+}
+
+/* ===============================================================
+   ========== 4. ZONA DERECHA: LOGIN / ICONOS DE USUARIO ==========
+   =============================================================== */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;       /* Espacio horizontal entre íconos/botón */
+}
+
+/* --------- 4.1 Botón “Acceder” (cuando NO hay sesión) --------- */
+.btn-login {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 208px;                /* Ancho exacto */
+    height: 57px;                /* Alto exacto */
+
+    background-color: #FFFFFF;   /* Fondo blanco */
+    border: 1px solid #E5E7EB;   /* Borde 1px gris claro */
+    border-radius: 20px;         /* Bordes redondeados */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-login:hover {
+    background-color: #F3F4F6;   /* Ligeramente gris al pasar */
+}
+
+/* Ícono dentro del botón “Acceder” */
+.btn-icon {
+    width: 27px;   /* Dimensión exacta */
+    height: 27px;  /* Dimensión exacta */
+    border-radius: 20px;
+    object-fit: cover;
+    margin-right: 8px;           /* Separación icono-texto */
+}
+
+/* Texto dentro del botón “Acceder” */
+.btn-text {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1F2937;              /* Gris oscuro */
+    line-height: 29px;           /* Para mantener buen “leading” */
+    white-space: nowrap;
+}
+
+/* --------- 4.2 Icono “Ajustes” (gear) y “Perfil” (cuando SÍ hay sesión) --------- */
+
+/* Icono de ajustes (gear) */
+.settings-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;        /* Ancho fijo: 40px */
+    height: 40px;       /* Alto fijo: 40px */
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.settings-link .icon-img-logged {
+    width: 100%;        /* Que la imagen original ocupe los 40×40 del contenedor */
+    height: 100%;
+    object-fit: cover;  /* Cubrir todo el espacio, recortando si hace falta */
+    border-radius: 4px; /* Opcional: redondear ligeramente los bordes de la imagen */
+}
+
+/* Dropdown de usuario */
+/* Ahora el contenedor crece con el contenido */
+.dropdown-users-logged {
+    position: relative;   
+    /* eliminamos width fijo */
+    height: 40px;         /* centramos verticalmente */
+    display: flex;
+    align-items: center;
+}
+
+/* El “botón” se adapta al contenido */
+.user-link-logged {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 8px;       /* espacio horizontal variable */
+    gap: 4px;             /* separación icono–texto */
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* La imagen sigue fija en 40×40 */
+.user-icon-logged {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+
+/* Contenido del dropdown (aparece al hacer hover) */
+.dropdown-content-users-logged {
     display: none;
     position: absolute;
-    background-color: #F0F0F0;
-    padding: 10px;
-    list-style-type: none;
-    z-index: 1000; /* Asegura que el men� desplegable est� encima de todo */
-    width: 140px; /* Ajusta el ancho del men� desplegable */
+    top: 100%;            /* Justo debajo de los 40px del icono */
+    right: 0;
+    background-color: #FFFFFF;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 10;
 }
 
-/* Muestra el men� desplegable cuando se pasa el mouse sobre el elemento del men� */
-.nav-menu li:hover .dropdown-menu {
+.dropdown-content-users-logged a {
     display: block;
+    padding: 10px 16px;
+    font-size: 14px;
+    color: #1F2937;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-content-users-logged a:hover {
+    background-color: #F3F4F6;
+}
+
+/* Mostrar el dropdown al hacer hover sobre el padre */
+.dropdown-users-logged:hover .dropdown-content-users-logged {
+    display: block;
+}
+
+/* ===============================================================
+   ========== 5. MEDIA QUERIES: Ajustes para pantallas más pequeñas =
+   =============================================================== */
+@media (max-width: 1024px) {
+    /* Ajustamos el gap del menú y reducimos tamaños */
+    .nav-menu {
+        gap: 24px;
+    }
+    .header-left .logo {
+        width: 300px;   /* Alto proporcional si quieres */
+        height: auto;
+    }
+    .btn-login {
+        width: 180px;
+        height: 50px;
+    }
+    .btn-icon {
+        width: 24px;
+        height: 24px;
+    }
+    .btn-text {
+        font-size: 14px;
+    }
+    .nav-menu li:nth-child(1) .nav-link {
+        width: 80px;
+        height: 25px;
+        line-height: 25px;
+        font-size: 20px;
+    }
+    .nav-menu li:nth-child(2) .nav-link {
+        width: 200px;
+        height: 25px;
+        line-height: 25px;
+        font-size: 20px;
+    }
+    .nav-menu li:nth-child(3) .nav-link {
+        width: 190px;
+        height: 25px;
+        line-height: 25px;
+        font-size: 20px;
+    }
+    /* Reducimos los íconos a 32×32 en pantallas pequeñas */
+    .settings-link,
+    .dropdown-users-logged {
+        width: 32px;
+        height: 32px;
+    }
+    .settings-link .icon-img-logged,
+    .user-icon-logged {
+        width: 100%;
+        height: 100%;
+    }
 }

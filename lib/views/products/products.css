@@ -1,166 +1,245 @@
-/* Reset básico */
+/* ===========================================================
+   Fuente Inter y Reset
+   =========================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap');
+@import url('https://cdn.example.com/fonts/instrument-sans.css');
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  body {
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
-  }
-  
-  /* Contenedor de planes */
-  .planes-container {
-    padding: 30px 20px;
-    text-align: center;
-  }
-  .planes-title {
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-    color: #333;
-  }
-  
-  .planes {
-    display: flex;
-    flex-wrap: wrap; /* Permite que las tarjetas bajen a otra línea */
-    justify-content: center;
-    gap: 20px;
-    padding-bottom: 10px;
-  }
-  
-  /* Estilo base de cada tarjeta */
-  .plan-card {
-    position: relative;
-    width: 250px;
-    background: #fff;
-    border: 2px solid #ddd;
-    border-radius: 12px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: border-color 0.3s, box-shadow 0.3s;
-  }
-  .plan-card input {
-    display: none;
-  }
-  
-  /* Encabezado con degradado */
-  .plan-header {
-    position: relative;
-    padding: 20px;
-    text-align: left;
-    color: #fff;
-    background: linear-gradient(135deg, #4b0082, #8a2be2);
-    transition: transform 0.3s;
-  }
-  .plan-card--popular .plan-header {
-    background: linear-gradient(135deg, #201f1f, #e50914);
-  }
-  .plan-header h3 {
-    font-size: 1.4rem;
-    margin-bottom: 4px;
-  }
-  .plan-header p {
-    font-size: 1rem;
-    opacity: 0.9;
-  }
-  
-  /* Checkmark usando imagen local, sin texto detrás */
-  .plan-header .checkmark {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 24px;
-    height: 24px;
-  
-    background-image: url('/assets/images/check-circle.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-  
-    /* eliminar cualquier posible texto */
-    font-size: 0;
-    line-height: 0;
-    text-indent: -9999px;
-  
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  
-  /* Lista de características con divisores */
-  .plan-features {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .plan-features li {
-    font-size: 0.9rem;
-    padding: 15px 20px;
-    color: #333;
-    text-align: left;
-    border-top: 1px solid #e0e0e0;
-  }
-  .plan-features li:first-child {
-    border-top: none;
-  }
-  
-  /* Estado seleccionado */
-  /* Eleva un poco el header */
-  .plan-card input:checked + .plan-header {
-    transform: translateY(-3px);
-    border-color: #e50914;
-  }
-  /* Muestra la imagen del check */
-  .plan-card input:checked + .plan-header .checkmark {
-    opacity: 1;
-  }
-  /* Fondo claro en el cuerpo de la tarjeta */
-  .plan-card input:checked ~ .plan-features {
-    background: #fafafa;
-    border-color: #e50914;
-  }
-  
-  /* Hover sobre la card */
-  .plan-card:hover {
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-    border-color: #aaa;
-  }
-  
-  .planes-footer {
-    max-width: 1330px;
-    margin: 8px auto 60px auto;
-    text-align: justify; /* Cambio realizado aquí */
-    color: #333;
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-  .planes-footer .nota {
-    margin-bottom: 10px;
-    color: #666;
-  }
-  .planes-footer a {
-    color: #0071eb;
-    text-decoration: none;
-  }
-  .planes-footer a:hover {
-    text-decoration: underline;
-  }
-  
-  .boton-siguiente-container {
-    text-align: center; /* Centramos solo el botón */
-    margin-top: 30px;
-  }
-  .boton-siguiente {
-    background-color: #e50914;
-    color: #fff;
-    font-size: 1.1rem;
-    font-weight: bold;
-    padding: 14px 50px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  .boton-siguiente:hover {
-    background-color: #b20710;
-  }
-  
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  color: #1F375B;
+  line-height: 1.4;
+}
+
+/* ===========================================================
+   Hero / Carousel
+   =========================================================== */
+#inicio { background: #FFF; position: relative; }
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 1958px;
+  aspect-ratio: 1958 / 602;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.carousel-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.carousel-item {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.carousel-item.active { display: flex; }
+.slide-1 { background-color: #01ABE4; }
+.carousel-item img {
+  max-width: 50%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+/* ===========================================================
+   SELECCIÓN DE PLANES
+   =========================================================== */
+.planes-container {
+  max-width: 1330px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+.planes-title {
+  font-size: 2rem;
+  margin-bottom: 32px;
+}
+.planes {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* ===========================================================
+   Estilos comunes de cada tarjeta
+   =========================================================== */
+.plan-card {
+  position: relative;
+  flex: 1 1 240px;
+  max-width: 250px;
+  background: #FFF;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  color: #1F375B;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: box-shadow .3s, border-color .3s, transform .3s;
+}
+.plan-card:hover {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  border-color: #aaa;
+}
+.plan-card input { display: none; }
+
+.plan-header {
+  position: relative;
+  padding: 20px;
+  color: #fff;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  border-radius: 12px 12px 0 0;
+}
+.plan-header h3 {
+  margin-bottom: 4px;
+}
+.plan-header p {
+  opacity: .9;
+}
+.plan-header .checkmark {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 24px; height: 24px;
+  background: url('../shared/images/check-circle.png') no-repeat center/contain;
+  opacity: 0;
+  transition: opacity .3s;
+}
+.plan-card input:checked + .plan-header {
+  transform: translateY(-3px);
+}
+.plan-card input:checked + .plan-header .checkmark {
+  opacity: 1;
+}
+
+.plan-features {
+  list-style: none;
+}
+.plan-features li {
+  text-align: left;
+  padding: 15px 20px;
+  font-size: .9rem;
+  border-top: 1px solid #e0e0e0;
+  color: #333;
+}
+.plan-features li:first-child {
+  border-top: none;
+}
+
+/* ===========================================================
+   Overrides específicos por plan (gradientes y tipografía)
+   =========================================================== */
+
+/* — Premium — */
+.plan-card--premium .plan-header {
+  background: linear-gradient(136.44deg, #D8CB18 19.92%, #F64C2B 78.48%);
+}
+.plan-card--premium .plan-header h3,
+.plan-card--premium .plan-header p {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 700;
+  font-size: 26px;        /* Ajustado a 26px */
+  line-height: 100%;
+  letter-spacing: 0;
+  vertical-align: middle;
+}
+
+/* — Pro — */
+.plan-card--pro .plan-header {
+  background: linear-gradient(136.44deg, #01ABE4 19.92%, #1F375B 78.48%);
+}
+.plan-card--pro .plan-header h3,
+.plan-card--pro .plan-header p {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 700;
+  font-size: 26px;        /* Ajustado a 26px */
+  line-height: 100%;
+  letter-spacing: 0;
+  vertical-align: middle;
+}
+
+/* — Avanzado — */
+.plan-card--avanzado .plan-header {
+  background: linear-gradient(136.44deg, #01ABE4 19.92%, #1F375B 78.48%);
+}
+.plan-card--avanzado .plan-header h3,
+.plan-card--avanzado .plan-header p {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 700;
+  font-size: 26px;        /* Ajustado a 26px */
+  line-height: 100%;
+  letter-spacing: 0;
+  vertical-align: middle;
+}
+
+/* — Esencial — */
+.plan-card--esencial .plan-header {
+  background: linear-gradient(136.44deg, #01ABE4 19.92%, #1F375B 78.48%);
+}
+.plan-card--esencial .plan-header h3,
+.plan-card--esencial .plan-header p {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 700;
+  font-size: 26px;        /* Ajustado a 26px */
+  line-height: 100%;
+  letter-spacing: 0;
+  vertical-align: middle;
+}
+
+/* — Básico — */
+.plan-card--basico .plan-header {
+  background: linear-gradient(136.44deg, #01ABE4 19.92%, #1F375B 78.48%);
+}
+.plan-card--basico .plan-header h3,
+.plan-card--basico .plan-header p {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 700;
+  font-size: 26px;        /* Ajustado a 26px */
+  line-height: 100%;
+  letter-spacing: 0;
+  vertical-align: middle;
+}
+
+/* ===========================================================
+   Términos y botón “Siguiente”
+   =========================================================== */
+.planes-footer {
+  max-width: 1330px;
+  margin: 0 auto 60px;
+  text-align: center;
+  padding: 0 20px;
+}
+.terminos-container {
+  margin-bottom: 20px;
+}
+.terminos-link {
+  font-size: 0.95rem;
+  color: #0071EB;
+  text-decoration: none;
+  font-weight: 500;
+}
+.terminos-link:hover {
+  text-decoration: underline;
+}
+.boton-siguiente-container {
+  text-align: center;
+}
+.boton-siguiente {
+  background: #0071EB;
+  color: #fff;
+  padding: 14px 50px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background .3s;
+}
+.boton-siguiente:hover {
+  background: #005BBB;
+}

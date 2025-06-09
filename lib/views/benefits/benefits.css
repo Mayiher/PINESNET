@@ -1,0 +1,296 @@
+/* ===========================================================
+   RESET Y GLOBAL
+   =========================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Instrument Sans', sans-serif;
+  background-color: #f9f9f9;
+  color: #1F375B;
+}
+
+/* ===========================================================
+   HERO / CAROUSEL
+   =========================================================== */
+#inicio {
+  background: #FFF;
+  position: relative;
+}
+
+/* Carrusel responsivo con esquinas redondeadas */
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 1958px;
+  aspect-ratio: 1958 / 602;
+  margin: 0 auto;
+  border-end-start-radius: 90px;
+  border-end-end-radius: 90px;
+  overflow: hidden;
+}
+
+/* Inner en flex y con transición */
+.carousel-inner {
+  display: flex;
+  height: 100%;
+  transition: transform 0.6s ease-in-out;
+}
+
+/* Cada slide ocupa el 100% y es contenedor relativo */
+.carousel-item {
+  flex: 0 0 100%;
+  position: relative;
+}
+
+/* Imagen de fondo de cada slide.
+  Se usa el selector de hijo directo (>) para que solo afecte
+  a la imagen principal del slide y no a otras imágenes anidadas como los íconos.
+*/
+.carousel-item > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ===========================================================
+   FLECHAS
+   =========================================================== */
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  background-color: transparent;
+  border: 2px solid #01ABE4;
+  border-radius: 50%;
+  color: #01ABE4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+}
+.prev { left: 24px; }
+.next { right: 24px; }
+.prev:hover,
+.next:hover { background-color: rgba(1, 171, 228, 0.1); }
+.prev:active,
+.next:active { background-color: rgba(1, 171, 228, 0.2); }
+
+/* ===========================================================
+   SLIDE 1: TEXTO IZQUIERDO (VERTICALMENTE CENTRADO)
+   =========================================================== */
+.slide-1 .hero-text {
+  position: absolute;
+  top: 50%;
+  left: 78px;
+  transform: translateY(-50%);
+  width: 800px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-1 .hero-text__title {
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 100%;
+  color: #FFFFFF;
+  margin-bottom: 12px;
+}
+.slide-1 .hero-text__subtitle {
+  margin: 0;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1.1;
+  color: #FFFFFF;
+}
+
+/* ===========================================================
+   SLIDE 1: PANEL DERECHO (VERTICALMENTE CENTRADO)
+   =========================================================== */
+.slide-1 .info-panel {
+  position: absolute;
+  top: 50%;
+  right: 78px;
+  transform: translateY(-50%);
+  width: 515px;
+  height: 155px;
+  background: #1F375B;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 5;
+}
+.slide-1 .info-panel__icon {
+  width: 70px;
+  height: 70px;
+  background: black;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* evita que el ícono sobresalga */
+  flex-shrink: 0;
+}
+
+.slide-1 .info-panel__icon img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  display: block;
+}
+
+.slide-1 .info-panel__text {
+  margin-left: 16px;
+}
+
+.slide-1 .hero-text__subtitle {
+  margin: 0;
+  font-weight: 700;
+  font-size: 28px; 
+  line-height: 1.2;
+  color: #FFFFFF;
+}
+.slide-1 .info-panel__text p {
+  margin: 0;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 100%;
+  color: #FFFFFF;
+}
+
+/* ===========================================================
+   SLIDE 2: CONTENIDO CENTRAL
+   =========================================================== */
+.slide-2 .slide-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 5;
+  max-width: 400px;
+}
+.slide-2 .slide-content h2 {
+  font-size: 48px;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
+.slide-2 .slide-content p {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #f0f0f0;
+}
+.slide-2 .btn-slide {
+  padding: 10px 20px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333333;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* ===========================================================
+   SECCIÓN DE BENEFICIOS
+   =========================================================== */
+.benefits-section {
+  padding: 80px 20px; /* Espaciado vertical y horizontal */
+  background-color: #f9f9f9;
+}
+
+.benefits-header {
+  text-align: center;
+  margin-bottom: 60px; /* Espacio entre el título y las tarjetas */
+}
+
+.benefits-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #1F375B;
+  margin-bottom: 8px;
+}
+
+.benefits-subtitle {
+  font-size: 18px;
+  color: #6c757d; /* Un gris sutil */
+}
+
+/* Contenedor de las tarjetas (Grid) */
+.benefits-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px; /* Espacio entre las tarjetas */
+  flex-wrap: wrap; /* Permite que las tarjetas se apilen en pantallas pequeñas */
+  max-width: 1200px;
+  margin: 0 auto; /* Centra el grid */
+}
+
+/* Estilo individual de cada tarjeta */
+.benefit-card {
+  background-color: #FFFFFF;
+  border-radius: 16px; /* Esquinas redondeadas */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); /* Sombra suave */
+  overflow: hidden; /* Para que las esquinas redondeadas de la tarjeta corten la imagen */
+  max-width: 360px;
+  flex: 1 1 300px; /* Flexbox para responsividad */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-8px); /* Efecto de levitar al pasar el mouse */
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.benefit-card img {
+  width: 100%;
+  border-end-start-radius: 16px;
+  border-end-end-radius: 16px;
+  height: 180px; /* Altura fija para la imagen */
+  object-fit: cover; /* Asegura que la imagen cubra el espacio sin deformarse */
+  display: block;
+}
+
+.card-content {
+  padding: 25px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1F375B;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.card-description {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #5a6a85;
+}
+
+/* ===========================================================
+   RESPONSIVIDAD PARA BENEFICIOS
+   =========================================================== */
+@media (max-width: 768px) {
+  .benefits-section {
+    padding: 60px 15px;
+  }
+
+  .benefits-title {
+    font-size: 30px;
+  }
+
+  .benefits-header {
+    margin-bottom: 40px;
+  }
+}

@@ -2,65 +2,85 @@
 
 include 'server.php';
 
+// Capturar y sanitizar todos los campos, incluido género
 $identificacion = mysqli_real_escape_string($conexion, $_POST['identificacion']);
-$nombre = mysqli_real_escape_string($conexion, $_POST['nombre']);
-$apellido = mysqli_real_escape_string($conexion, $_POST['apellido']);
-$correo = mysqli_real_escape_string($conexion, $_POST['correo']);
-$telefono = mysqli_real_escape_string($conexion, $_POST['telefono']);
-$contrasena = mysqli_real_escape_string($conexion, $_POST['contrasena']);
+$nombre         = mysqli_real_escape_string($conexion, $_POST['nombre']);
+$apellido       = mysqli_real_escape_string($conexion, $_POST['apellido']);
+$correo         = mysqli_real_escape_string($conexion, $_POST['correo']);
+$telefono       = mysqli_real_escape_string($conexion, $_POST['telefono']);
+$genero         = mysqli_real_escape_string($conexion, $_POST['genero']);
+$contrasena     = mysqli_real_escape_string($conexion, $_POST['contrasena']);
 
 // Verificar si algún campo está vacío
-if (empty($identificacion) || empty($nombre) || empty($apellido) || empty($correo) || empty($telefono) || empty($contrasena)) {
+if (
+    empty($identificacion) || empty($nombre) || empty($apellido) ||
+    empty($correo) || empty($telefono) || empty($genero) || empty($contrasena)
+) {
     echo '
     <script>
-    alert("Debe rellenar todos los campos");
-    window.location = "register.php";
+      alert("Debe rellenar todos los campos");
+      window.location = "register.php";
     </script>
     ';
     exit();
 }
 
-// Encriptar la contraseña
-$contrasena = hash('sha512', $contrasena);
+// Encriptar la contraseña con SHA-256
+$contrasena_hash = hash('sha256', $contrasena);
 
-// Verificar si los datos ya existen en la base de datos (en una sola consulta)
-$query_verificar = "SELECT * FROM users WHERE identificacion='$identificacion' OR correo='$correo' OR telefono='$telefono'";
-$resultado_verificar = mysqli_query($conexion, $query_verificar);
+// Verificar si la identificación, correo o teléfono ya existen
+$query_verificar = "SELECT * FROM users WHERE identificacion=? OR correo=? OR telefono=?";
+$stmt_verificar  = $conexion->prepare($query_verificar);
+$stmt_verificar->bind_param("iss", $identificacion, $correo, $telefono);
+$stmt_verificar->execute();
+$resultado_verificar = $stmt_verificar->get_result();
 
-if (mysqli_num_rows($resultado_verificar) > 0) {
+if ($resultado_verificar->num_rows > 0) {
     echo '
     <script>
-    alert("La identificación, correo o teléfono ya están registrados, intente con otra diferente.");
-    window.location = "register.php";
+      alert("La identificación, correo o teléfono ya están registrados, intente con otra diferente.");
+      window.location = "register.php";
     </script>
     ';
     exit();
 }
 
-// Preparar la consulta para insertar el nuevo usuario
-$query_insert = "INSERT INTO users (identificacion, nombre, apellido, correo, telefono, contrasena)
-                 VALUES('$identificacion', '$nombre', '$apellido', '$correo', '$telefono', '$contrasena')";
+// Preparar la consulta para insertar el nuevo usuario, incluyendo género
+$query_insert = "
+  INSERT INTO users
+    (identificacion, nombre, apellido, correo, telefono, genero, contrasena, rol)
+  VALUES
+    (?, ?, ?, ?, ?, ?, ?, 'user')
+";
+$stmt_insert = $conexion->prepare($query_insert);
+$stmt_insert->bind_param(
+    "issssss",
+    $identificacion,
+    $nombre,
+    $apellido,
+    $correo,
+    $telefono,
+    $genero,
+    $contrasena_hash
+);
 
-// Ejecutar la consulta de inserción
-$ejecutar = mysqli_query($conexion, $query_insert);
-
-if ($ejecutar) {
+// Ejecutar la inserción
+if ($stmt_insert->execute()) {
     echo '
     <script>
-    alert("Usuario registrado exitosamente");
-    window.location = "/index.php";
+      alert("Usuario registrado exitosamente");
+      window.location = "/index.php";
     </script>
     ';
 } else {
     echo '
     <script>
-    alert("Intentelo nuevamente, usuario no registrado");
-    window.location = "register.php";
+      alert("Inténtelo nuevamente, usuario no registrado");
+      window.location = "register.php";
     </script>
     ';
 }
 
 // Cerrar la conexión
-mysqli_close($conexion);
-
+$conexion->close();
 ?>
