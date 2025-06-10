@@ -13,6 +13,7 @@ body {
 
 /* ---------- CONTENEDOR PRINCIPAL DEL HEADER ---------- */
 .main-header {
+     height: 120px;
     display: flex;
     align-items: center;                /* Centrar verticalmente todos los contenidos */
     justify-content: space-between;     /* Logo izquierda, nav centro, header-right derecha */
@@ -25,8 +26,8 @@ body {
    ========== 2. LOGO (izquierda) =================================
    =============================================================== */
 .header-left .logo {
-    width: 371px;   /* ancho fijo */
-    height: 88px;   /* alto fijo */
+    width: 320px;   /* ancho fijo */
+    height: 80px;   /* alto fijo */
     object-fit: contain;
 }
 
@@ -54,7 +55,7 @@ body {
     display: inline-block;
     font-family: 'Instrument Sans', sans-serif;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 20px;
     line-height: 29px;             /* Para centrar verticalmente dentro de 29px de alto */
     letter-spacing: 0;
     text-align: center;
@@ -106,8 +107,8 @@ body {
     align-items: center;
     justify-content: center;
 
-    width: 208px;                /* Ancho exacto */
-    height: 57px;                /* Alto exacto */
+    width: 160px;                /* Ancho exacto */
+    height: 48px;                /* Alto exacto */
 
     background-color: #FFFFFF;   /* Fondo blanco */
     border: 1px solid #E5E7EB;   /* Borde 1px gris claro */

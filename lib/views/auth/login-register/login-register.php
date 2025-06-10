@@ -18,7 +18,7 @@ if (isset($_SESSION['users'])) {
 </head>
 <body>
   <div class="lr-container">
-    <img src="/assets/images/logo.png" alt="Logo PinesNet" class="lr-logo">
+    <img src="/assets/images/logo_login_register.png" alt="Logo PinesNet" class="lr-logo">
     <div class="lr-box">
       <a href="/index.php">
         <img src="/assets/images/exit.png" alt="Cerrar" class="close-btn">
